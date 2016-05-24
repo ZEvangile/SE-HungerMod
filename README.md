@@ -9,7 +9,7 @@ All Credit for the machines and items goes to Not7CD and SEModder4
 ### How to Clone:
 
 #### Install git-lfs
-Models and Textures are stored using git-lfs
+Models and Textures are stored using git-lfs.
 You can get it here: [git-lfs](https://git-lfs.github.com/)
 
 
