@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<BlueprintClasses>
+  <Class>
+      <Id>                   
+        <TypeId>BlueprintClassDefinition</TypeId>
+        <SubtypeId>Liquids</SubtypeId>
+      </Id>
+      <DisplayName>Liquids</DisplayName>
+      <Icon>Textures\GUI\Icons\buttons\large_block.dds</Icon>
+      <HighlightIcon>Textures\GUI\Icons\buttons\large_block_highlight.dds</HighlightIcon>
+      <InputConstraintIcon>Textures\GUI\Icons\filter_ore.dds</InputConstraintIcon>
+      <OutputConstraintIcon>Textures\GUI\Icons\filter_ingot.dds</OutputConstraintIcon>
+    </Class>
+    <Class>
+      <Id>                   
+        <TypeId>BlueprintClassDefinition</TypeId>
+        <SubtypeId>Food</SubtypeId>
+      </Id>
+      <DisplayName>Food and Liquids</DisplayName>
+      <Icon>Textures\not\GUI\food.dds</Icon>
+      <HighlightIcon>Textures\not\GUI\food_highlight.dds</HighlightIcon>
+    </Class>
+    <Class>
+      <Id>                   
+        <TypeId>BlueprintClassDefinition</TypeId>
+        <SubtypeId>WaterRecycle</SubtypeId>
+      </Id>
+      <DisplayName>Water</DisplayName>
+      <Icon>Textures\GUI\Icons\buttons\large_block.dds</Icon>
+      <HighlightIcon>Textures\GUI\Icons\buttons\large_block_highlight.dds</HighlightIcon>
+      <InputConstraintIcon>Textures\not\GUI\filter_canister.dds</InputConstraintIcon>
+      <OutputConstraintIcon>Textures\not\GUI\filter_canister.dds</OutputConstraintIcon>
+    </Class>
+    <Class>
+      <Id>                   
+        <TypeId>BlueprintClassDefinition</TypeId>
+        <SubtypeId>BioreactorNutrient</SubtypeId>
+      </Id>
+      <DisplayName>Water and basic substances (Gravel)</DisplayName>
+      <Icon>Textures\GUI\Icons\buttons\large_block.dds</Icon>
+      <HighlightIcon>Textures\GUI\Icons\buttons\large_block_highlight.dds</HighlightIcon>
+      <InputConstraintIcon>Textures\not\GUI\filter_basic.dds</InputConstraintIcon>
+      <OutputConstraintIcon>Textures\not\GUI\filter_canister.dds</OutputConstraintIcon>
+    </Class>
+    <Class>
+      <Id>                   
+        <TypeId>BlueprintClassDefinition</TypeId>
+        <SubtypeId>HydroponicsPlant</SubtypeId>
+      </Id>
+      <DisplayName>Water and basic substances (Gravel)</DisplayName>
+      <Icon>Textures\GUI\Icons\buttons\large_block.dds</Icon>
+      <HighlightIcon>Textures\GUI\Icons\buttons\large_block_highlight.dds</HighlightIcon>
+      <InputConstraintIcon>Textures\not\GUI\filter_basic.dds</InputConstraintIcon>
+      <OutputConstraintIcon>Textures\not\GUI\filter_plant.dds</OutputConstraintIcon>
+    </Class>
+</BlueprintClasses>
+<BlueprintClassEntries>
+    <Entry Class="BioreactorNutrient" BlueprintSubtypeId="BasicToNutrientPaste" />
+    <Entry Class="Food" BlueprintSubtypeId="CoffeeFood" />
+    <Entry Class="Food" BlueprintSubtypeId="FreshFood" />
+    <Entry Class="Food" BlueprintSubtypeId="GummyFood" />
+    <Entry Class="Food" BlueprintSubtypeId="SyntheticFood" />
+    <Entry Class="Food" BlueprintSubtypeId="WarmFood" />
+    <Entry Class="Food" BlueprintSubtypeId="WaterFood" />
+    <Entry Class="HydroponicsPlant" BlueprintSubtypeId="BasicToPlant" />
+    <Entry Class="Ingots" BlueprintSubtypeId="IceOreToWater" />
+    <Entry Class="WaterRecycle" BlueprintSubtypeId="GreyToCleanWater" />
+
+	<Entry Class="LargeBlocks" BlueprintSubtypeId="Assembler/Kitchen" />
+	<Entry Class="LargeBlocks" BlueprintSubtypeId="MedicalRoom/ResupplyStation" />
+	<Entry Class="LargeBlocks" BlueprintSubtypeId="OxygenGenerator/AdvancedSystemsOxygenGenerator" />
+	<Entry Class="LargeBlocks" BlueprintSubtypeId="Refinery/BioReactor" />
+	<Entry Class="LargeBlocks" BlueprintSubtypeId="Refinery/Hydroponics" />
+	<Entry Class="LargeBlocks" BlueprintSubtypeId="Refinery/WRS" />
+
+	<Entry Class="SmallBlocks" BlueprintSubtypeId="Assembler/SmallBlocksKitchen" />
+	<Entry Class="SmallBlocks" BlueprintSubtypeId="MedicalRoom/SmallBlocksResupplyStation" />
+	<Entry Class="SmallBlocks" BlueprintSubtypeId="OxygenGenerator/SmallBlocksAdvancedSystemsOxygenGenerator" />
+	<Entry Class="SmallBlocks" BlueprintSubtypeId="Refinery/SmallBlocksBioReactor" />
+	<Entry Class="SmallBlocks" BlueprintSubtypeId="Refinery/SmallBlocksHydroponics" />
+	<Entry Class="SmallBlocks" BlueprintSubtypeId="Refinery/SmallBlocksWRS" />
+</BlueprintClassEntries>
+</Definitions>

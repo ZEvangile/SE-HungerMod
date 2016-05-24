@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PhysicalItems>
+    <PhysicalItem>
+      <Id>
+        <TypeId>Ore</TypeId>
+        <SubtypeId>Ice</SubtypeId>
+      </Id>
+      <DisplayName>DisplayName_Item_Ice</DisplayName>
+      <Icon>Textures\GUI\Icons\ore_H2O_ice.dds</Icon>
+      <Size>
+        <X>0.07</X>
+        <Y>0.07</Y>
+        <Z>0.07</Z>
+      </Size>
+      <Mass>1</Mass>
+      <Volume>0.37</Volume>
+      <Model>Models\Components\Sphere.mwm</Model>
+      <IconSymbol>IconSymbol_Ice</IconSymbol>
+    </PhysicalItem>
+    <PhysicalItem>
+      <Id>
+        <TypeId>Ingot</TypeId>
+        <SubtypeId>GreyWater</SubtypeId>
+      </Id>
+      <DisplayName>Grey Water</DisplayName>
+       <Icon>Textures\not\GUI\Canister\WaterGrey.dds</Icon>
+      <Size>
+        <X>0.036</X>
+        <Y>0.036</Y>
+        <Z>0.036</Z>
+      </Size>
+      <Mass>1.1</Mass>
+      <Volume>1</Volume>
+      <Model>Models\Ingots\platinum_ingot.mwm</Model>
+      
+    </PhysicalItem>
+    <PhysicalItem>
+      <Id>
+        <TypeId>Ingot</TypeId>
+        <SubtypeId>CleanWater</SubtypeId>
+      </Id>
+      <DisplayName>Drinkable Water</DisplayName>
+      <Icon>Textures\not\GUI\Canister\WaterClean.dds</Icon>
+      <Size>
+        <X>0.036</X>
+        <Y>0.036</Y>
+        <Z>0.036</Z>
+      </Size>
+      <Mass>1</Mass>
+      <Volume>1</Volume>
+      <Model>Models\Ingots\platinum_ingot.mwm</Model>
+      
+    </PhysicalItem>
+    <PhysicalItem>
+      <Id>
+        <TypeId>Ingot</TypeId>
+        <SubtypeId>NutrientPaste</SubtypeId>
+      </Id>
+      <DisplayName>Nutrient Paste</DisplayName>
+       <Icon>Textures\not\GUI\Canister\NutrientPaste.dds</Icon>
+      <Size>
+        <X>0.048</X>
+        <Y>0.048</Y>
+        <Z>0.1</Z>
+      </Size>
+      <Mass>1.2</Mass>
+      <Volume>1</Volume>
+      <Model>Models\Ingots\nickel_ingot.mwm</Model>
+    </PhysicalItem>
+    <PhysicalItem>
+      <Id>
+        <TypeId>Ingot</TypeId>
+        <SubtypeId>SubFresh</SubtypeId>
+      </Id>
+      <DisplayName>Fresh Vegetables and Fruits</DisplayName>
+       <Icon>Textures\not\GUI\Food\SubFresh.dds</Icon>
+      <Size>
+        <X>0.048</X>
+        <Y>0.048</Y>
+        <Z>0.1</Z>
+      </Size>
+      <Mass>1.2</Mass>
+      <Volume>1</Volume>
+      <Model>Models\Ingots\nickel_ingot.mwm</Model>
+    </PhysicalItem>
+
+<!-- Food -->
+
+  <PhysicalItem>
+      <Id>
+        <TypeId>Ingot</TypeId>
+        <SubtypeId>WarmFood</SubtypeId>
+      </Id>
+      <DisplayName>Warm Food</DisplayName>
+       <Icon>Textures\not\GUI\Food\FoodWarm.dds</Icon>
+      <Size>
+        <X>0.048</X>
+        <Y>0.048</Y>
+        <Z>0.1</Z>
+      </Size>
+      <Mass>1.2</Mass>
+      <Volume>1</Volume>
+      <Model>Models\Ingots\nickel_ingot.mwm</Model>
+    </PhysicalItem>
+
+    <PhysicalItem>
+      <Id>
+        <TypeId>Ingot</TypeId>
+        <SubtypeId>FreshFood</SubtypeId>
+      </Id>
+      <DisplayName>Fresh Food</DisplayName>
+       <Icon>Textures\not\GUI\Food\FoodFresh.dds</Icon>
+      <Size>
+        <X>0.048</X>
+        <Y>0.048</Y>
+        <Z>0.1</Z>
+      </Size>
+      <Mass>1.2</Mass>
+      <Volume>1</Volume>
+      <Model>Models\Ingots\nickel_ingot.mwm</Model>
+    </PhysicalItem>
+
+    <PhysicalItem>
+      <Id>
+        <TypeId>Ingot</TypeId>
+        <SubtypeId>GummybearsFood</SubtypeId>
+      </Id>
+      <DisplayName>Gummy Bears</DisplayName>
+       <Icon>Textures\not\GUI\Food\FoodGummybears.dds</Icon>
+      <Size>
+        <X>0.048</X>
+        <Y>0.048</Y>
+        <Z>0.1</Z>
+      </Size>
+      <Mass>1.2</Mass>
+      <Volume>1</Volume>
+      <Model>Models\Ingots\nickel_ingot.mwm</Model>
+    </PhysicalItem>
+
+    <PhysicalItem>
+      <Id>
+        <TypeId>Ingot</TypeId>
+        <SubtypeId>SyntheticFood</SubtypeId>
+      </Id>
+      <DisplayName>Synthetic Food</DisplayName>
+       <Icon>Textures\not\GUI\Food\FoodSynthetic.dds</Icon>
+      <Size>
+        <X>0.048</X>
+        <Y>0.048</Y>
+        <Z>0.1</Z>
+      </Size>
+      <Mass>1.2</Mass>
+      <Volume>1</Volume>
+      <Model>Models\Ingots\nickel_ingot.mwm</Model>
+    </PhysicalItem>
+
+    <PhysicalItem>
+      <Id>
+        <TypeId>Ingot</TypeId>
+        <SubtypeId>WaterFood</SubtypeId>
+      </Id>
+      <DisplayName>Water</DisplayName>
+       <Icon>Textures\not\GUI\Food\LiquidWater.dds</Icon>
+      <Size>
+        <X>0.048</X>
+        <Y>0.048</Y>
+        <Z>0.1</Z>
+      </Size>
+      <Mass>0.5</Mass>
+      <Volume>0.5</Volume>
+      <Model>Models\Ingots\nickel_ingot.mwm</Model>
+    </PhysicalItem>
+    <PhysicalItem>
+      <Id>
+        <TypeId>Ingot</TypeId>
+        <SubtypeId>CoffeeFood</SubtypeId>
+      </Id>
+      <DisplayName>Coffee</DisplayName>
+       <Icon>Textures\not\GUI\Food\LiquidCoffee.dds</Icon>
+      <Size>
+        <X>0.048</X>
+        <Y>0.048</Y>
+        <Z>0.1</Z>
+      </Size>
+      <Mass>0.53</Mass>
+      <Volume>0.5</Volume>
+      <Model>Models\Ingots\nickel_ingot.mwm</Model>
+    </PhysicalItem>
+
+  </PhysicalItems>
+</Definitions>

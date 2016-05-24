@@ -1,0 +1,317 @@
+<?xml version="1.0"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CubeBlocks>
+ <Definition xsi:type="MyObjectBuilder_RefineryDefinition">
+      <Id>
+        <TypeId>Refinery</TypeId>
+        <SubtypeId>BioReactor</SubtypeId>
+      </Id>
+      <DisplayName>Bioreactor</DisplayName>
+      <Icon>Textures\not\GUI\BioReactor.dds</Icon>
+      <CubeSize>Large</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" /> 
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\BioReactor.mwm</Model>
+      <Components>
+		<Component Subtype="SteelPlate" Count="20" />
+		<Component Subtype="Construction" Count="8" />
+		<Component Subtype="LargeTube" Count="2" />
+		<Component Subtype="SmallTube" Count="28" />
+		<Component Subtype="Motor" Count="2" />
+		<Component Subtype="SmallTube" Count="8" />
+		<Component Subtype="Computer" Count="2" />
+		<Component Subtype="SteelPlate" Count="5" />
+		<Component Subtype="BulletproofGlass" Count="8" />
+      </Components>
+      <CriticalComponent Subtype="Computer" Index="0" />
+	  <BuildProgressModels>
+		<Model BuildPercentUpperBound="0.25" File="Models\not\BioReactorCon1.mwm" />
+		<Model BuildPercentUpperBound="0.50" File="Models\not\BioReactorCon2.mwm" />
+		<Model BuildPercentUpperBound="0.75" File="Models\not\BioReactorCon3.mwm" />
+		<Model BuildPercentUpperBound="1.00" File="Models\not\BioReactorCon4.mwm" />
+      </BuildProgressModels>
+      <BlockPairName>BioReactorBlockPairName</BlockPairName>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>30</BuildTimeSeconds>
+	  <InventoryMaxVolume>2</InventoryMaxVolume>
+      <InventorySize>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </InventorySize>
+      <StandbyPowerConsumption>0.001</StandbyPowerConsumption>
+      <OperationalPowerConsumption>0.52</OperationalPowerConsumption>
+      <BlueprintClasses>
+        <Class>BioreactorNutrient</Class>
+      </BlueprintClasses>
+      <RefineSpeed>1.0</RefineSpeed>
+      <MaterialEfficiency>0.99</MaterialEfficiency>
+      <ResourceSinkGroup>Factory</ResourceSinkGroup>
+      <DamageEffectId>212</DamageEffectId>
+      <DamagedSound>ParticleHeavyMech</DamagedSound>
+    </Definition>
+	
+  <Definition xsi:type="MyObjectBuilder_RefineryDefinition">
+      <Id>
+        <TypeId>Refinery</TypeId>
+        <SubtypeId>WRS</SubtypeId>
+      </Id>
+      <DisplayName>Water Recycling System</DisplayName>
+      <Icon>Textures\not\GUI\WRS.dds</Icon>
+      <CubeSize>Large</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\WRS.mwm</Model>
+      <Components>
+		<Component Subtype="Girder" Count="12" />
+        <Component Subtype="InteriorPlate" Count="8" />
+		<Component Subtype="LargeTube" Count="4" />
+		<Component Subtype="SteelPlate" Count="24" />
+        <Component Subtype="Construction" Count="4" />
+		<Component Subtype="Motor" Count="4" />
+		<Component Subtype="MetalGrid" Count="8" />
+        <Component Subtype="SmallTube" Count="32" />
+		<Component Subtype="Computer" Count="10" />
+		<Component Subtype="InteriorPlate" Count="8" />
+      </Components>
+      <CriticalComponent Subtype="Computer" Index="0" />
+	  <BuildProgressModels>
+        <Model BuildPercentUpperBound="0.16" File="Models\WRSCon1.mwm" />
+        <Model BuildPercentUpperBound="0.33" File="Models\WRSCon2.mwm" />
+        <Model BuildPercentUpperBound="0.50" File="Models\WRSCon3.mwm" />
+        <Model BuildPercentUpperBound="0.83" File="Models\WRSCon4.mwm" />
+        <Model BuildPercentUpperBound="1.00" File="Models\WRSCon5.mwm" />
+      </BuildProgressModels>
+      <BlockPairName>WRSBlockPairName</BlockPairName>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>70</BuildTimeSeconds>
+      <InventoryMaxVolume>2</InventoryMaxVolume>
+      <InventorySize>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </InventorySize>
+      <StandbyPowerConsumption>0.001</StandbyPowerConsumption>
+      <OperationalPowerConsumption>0.21</OperationalPowerConsumption>
+      <BlueprintClasses>
+        <Class>WaterRecycle</Class>
+      </BlueprintClasses>
+      <RefineSpeed>1.0</RefineSpeed>
+      <MaterialEfficiency>0.99</MaterialEfficiency>
+      <ResourceSinkGroup>Factory</ResourceSinkGroup>
+      <DamageEffectId>212</DamageEffectId>
+      <DamagedSound>ParticleHeavyMech</DamagedSound>
+    </Definition>
+
+  <Definition xsi:type="MyObjectBuilder_RefineryDefinition">
+      <Id>
+        <TypeId>Refinery</TypeId>
+        <SubtypeId>Hydroponics</SubtypeId>
+      </Id>
+      <DisplayName>Hydroponics</DisplayName> 
+      <Icon>Textures\not\GUI\Hydroponics.dds</Icon>
+      <CubeSize>Large</CubeSize> 
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" /> 
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\not\Hydroponics.mwm</Model>
+      <Components>
+        <Component Subtype="SteelPlate" Count="48" />
+        <Component Subtype="InteriorPlate" Count="8" />
+        <Component Subtype="LargeTube" Count="2" />
+        <Component Subtype="SteelPlate" Count="24" />
+        <Component Subtype="Construction" Count="4" />
+        <Component Subtype="Motor" Count="2" />
+        <Component Subtype="MetalGrid" Count="16" />
+        <Component Subtype="SmallTube" Count="32" />
+        <Component Subtype="BulletproofGlass" Count="6" />
+        <Component Subtype="Computer" Count="10" />
+        <Component Subtype="SteelPlate" Count="24" />
+      </Components>
+      <CriticalComponent Subtype="Computer" Index="0" />
+    <BuildProgressModels>
+		<Model BuildPercentUpperBound="0.33" File="Models\not\HydroponicsCon1.mwm" />
+		<Model BuildPercentUpperBound="0.66" File="Models\not\HydroponicsCon2.mwm" />
+		<Model BuildPercentUpperBound="1.00" File="Models\not\HydroponicsCon3.mwm" />
+      </BuildProgressModels>
+      <BlockPairName>HydroponicsBlockPairName</BlockPairName>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>60</BuildTimeSeconds>
+       <InventoryMaxVolume>2</InventoryMaxVolume>
+      <InventorySize>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </InventorySize>
+      <StandbyPowerConsumption>0.001</StandbyPowerConsumption>
+      <OperationalPowerConsumption>0.52</OperationalPowerConsumption>
+      <BlueprintClasses>
+        <Class>HydroponicsPlant</Class>
+      </BlueprintClasses>
+      <RefineSpeed>1.0</RefineSpeed>
+      <MaterialEfficiency>0.99</MaterialEfficiency>
+      <ResourceSinkGroup>Factory</ResourceSinkGroup>
+      <DamageEffectId>212</DamageEffectId>
+      <DamagedSound>ParticleHeavyMech</DamagedSound>
+    </Definition>
+
+	<Definition xsi:type="MyObjectBuilder_AssemblerDefinition">
+      <Id>
+        <TypeId>Assembler</TypeId>
+        <SubtypeId>Kitchen</SubtypeId>
+      </Id>
+      <DisplayName>Food Processing Module</DisplayName>
+      <Icon>Textures\not\GUI\Kitchen.dds</Icon>
+      <CubeSize>Large</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="2" y="1" z="1" /> 
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\not\Kitchen.mwm</Model>
+      <Components>
+        <Component Subtype="SteelPlate" Count="40" />
+        <Component Subtype="Construction" Count="50" />
+        <Component Subtype="SmallTube" Count="16" />
+		<Component Subtype="Girder" Count="4" />
+        <Component Subtype="Motor" Count="4" />
+        <Component Subtype="Display" Count="2" />
+		<Component Subtype="BulletproofGlass" Count="8" />
+        <Component Subtype="Computer" Count="30" />
+        <Component Subtype="SteelPlate" Count="20" />
+      </Components>
+      <CriticalComponent Subtype="Computer" Index="0" />
+	  <BuildProgressModels>
+        <Model BuildPercentUpperBound="0.33" File="Models\not\KitchenCon1.mwm" />
+        <Model BuildPercentUpperBound="0.66" File="Models\not\KitchenCon2.mwm" />
+        <Model BuildPercentUpperBound="1.00" File="Models\not\KitchenCon3.mwm" />
+      </BuildProgressModels>
+      <BlockPairName>KitchenBlockPairName</BlockPairName>
+      <EdgeType>Light</EdgeType>
+	  <InventoryMaxVolume>1</InventoryMaxVolume>
+      <InventorySize>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </InventorySize>
+      <StandbyPowerConsumption>0.001</StandbyPowerConsumption>
+      <OperationalPowerConsumption>0.56</OperationalPowerConsumption>
+      <BuildTimeSeconds>60</BuildTimeSeconds>
+      <BlueprintClasses>
+        <Class>Food</Class>
+      </BlueprintClasses>
+      <ResourceSinkGroup>Factory</ResourceSinkGroup>
+      <DamageEffectId>212</DamageEffectId>
+      <DamagedSound>ParticleHeavyMech</DamagedSound>
+    </Definition>
+	
+    <Definition xsi:type="MyObjectBuilder_MedicalRoomDefinition">
+      <Id>
+        <TypeId>MedicalRoom</TypeId>
+        <SubtypeId>ResupplyStation</SubtypeId>
+      </Id>
+      <DisplayName>Resupply Station</DisplayName>
+      <Icon>Textures\not\GUI\ResupplyStation.dds</Icon>
+      <CubeSize>Large</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" /> 
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\ResupplyStation.mwm</Model>
+      <IdleSound>BlockMedical</IdleSound>
+      <ProgressSound>BlockMedicalProgress</ProgressSound>
+      <Components>
+        <Component Subtype="InteriorPlate" Count="20" />
+        <Component Subtype="SmallTube" Count="8" />
+        <Component Subtype="Motor" Count="1" />
+        <Component Subtype="Display" Count="1" />
+        <Component Subtype="Computer" Count="5" />
+        <Component Subtype="InteriorPlate" Count="5" />      
+      </Components>
+      <CriticalComponent Subtype="Computer" Index="0" />
+	  <MountPoints>
+        <MountPoint Side="Back" StartX="0.25" StartY="0.25" EndX="0.75" EndY="0.75" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="0.33" File="Models\ResupplyStationCon1.mwm" />
+        <Model BuildPercentUpperBound="0.66" File="Models\ResupplyStationCon2.mwm" />
+        <Model BuildPercentUpperBound="1.00" File="Models\ResupplyStationCon3.mwm" />
+      </BuildProgressModels>
+      <BlockPairName>ResupplyStationBlockPairName</BlockPairName>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>15</BuildTimeSeconds>
+      <ResourceSinkGroup>Utility</ResourceSinkGroup>
+      <DamageEffectId>214</DamageEffectId>
+      <DamagedSound>ParticleElectrical</DamagedSound>
+    </Definition>
+
+    <Definition xsi:type="MyObjectBuilder_OxygenGeneratorDefinition">
+      <Id>
+        <TypeId>OxygenGenerator</TypeId>
+        <SubtypeId>AdvancedSystemsOxygenGenerator</SubtypeId>
+      </Id>
+      <DisplayName>Oxygen Generator</DisplayName>
+      <Icon>Textures\not\GUI\OxygenGen.dds</Icon>
+      <CubeSize>Large</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\OxygenGen.mwm</Model>
+      <Components>
+        <Component Subtype="InteriorPlate" Count="12" />
+        <Component Subtype="LargeTube" Count="8" />
+        <Component Subtype="Construction" Count="16" />
+        <Component Subtype="SteelPlate" Count="2" />
+        <Component Subtype="Motor" Count="1" />
+        <Component Subtype="MetalGrid" Count="24" />
+        <Component Subtype="SmallTube" Count="8" />
+        <Component Subtype="Computer" Count="10" />
+        <Component Subtype="InteriorPlate" Count="8" />
+      </Components>
+      <CriticalComponent Subtype="Computer" Index="0" />
+    <BuildProgressModels>
+		<Model BuildPercentUpperBound="0.25" File="Models\OxygenGenCon1.mwm" />
+		<Model BuildPercentUpperBound="0.50" File="Models\OxygenGenCon2.mwm" />
+		<Model BuildPercentUpperBound="0.75" File="Models\OxygenGenCon3.mwm" />
+		<Model BuildPercentUpperBound="1.00" File="Models\OxygenGenCon4.mwm" />
+      </BuildProgressModels>
+      <BlockPairName>AdvancedSystemsOxygenGenerator</BlockPairName>
+      <EdgeType>Light</EdgeType>
+      <ResourceSourceGroup>Reactors</ResourceSourceGroup>
+      <ResourceSinkGroup>Factory</ResourceSinkGroup>
+      <IceConsumptionPerSecond>167</IceConsumptionPerSecond>
+      <InventoryMaxVolume>4</InventoryMaxVolume>
+      <InventorySize>
+        <X>2</X>
+        <Y>2</Y>
+        <Z>2</Z>
+      </InventorySize>
+      <StandbyPowerConsumption>0.001</StandbyPowerConsumption>
+      <OperationalPowerConsumption>0.33</OperationalPowerConsumption>
+      <ProducedGases>
+        <GasInfo>
+          <Id>
+            <TypeId>GasProperties</TypeId>
+            <SubtypeId>Oxygen</SubtypeId>
+          </Id>
+          <IceToGasRatio>3</IceToGasRatio>
+        </GasInfo>
+        <GasInfo>
+          <Id>
+            <TypeId>GasProperties</TypeId>
+            <SubtypeId>Hydrogen</SubtypeId>
+          </Id>
+          <IceToGasRatio>3</IceToGasRatio>
+        </GasInfo>
+      </ProducedGases>
+      <BlueprintClasses>
+        <Class>Ice</Class>
+        <Class>OxygenBottles</Class>
+        <Class>HydrogenBottles</Class>
+      </BlueprintClasses>
+      <DamageEffectId>213</DamageEffectId>
+      <DamagedSound>ParticleWeapExpl</DamagedSound>
+      <GenerateSound>ArcBlockOxyGenProcess</GenerateSound>
+      <IdleSound>ArcBlockOxyGenIdle</IdleSound>
+    </Definition>
+  </CubeBlocks>
+</Definitions>

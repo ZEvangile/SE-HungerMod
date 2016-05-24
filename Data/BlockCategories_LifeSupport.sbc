@@ -1,0 +1,28 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CategoryClasses>
+    <Category xsi:type="MyObjectBuilder_GuiBlockCategoryDefinition">
+      <Id>
+        <TypeId>GuiBlockCategoryDefinition</TypeId>
+        <SubtypeId/>
+      </Id>
+      <DisplayName>Advanced Life Support Systems</DisplayName>
+      <Name>Advanced Life Support Systems</Name>
+      <ItemIds>
+        <string>Refinery/BioReactor</string>
+        <string>Refinery/WRS</string>
+        <string>Refinery/Hydroponics</string>
+        <string>Assembler/Kitchen</string>
+        <string>MedicalRoom/ResupplyStation</string>
+        <string>OxygenGenerator/AdvancedSystemsOxygenGenerator</string>
+
+        <string>Refinery/SmallBioReactor</string>
+        <string>Refinery/SmallWRS</string>
+        <string>Refinery/SmallHydroponics</string>
+        <string>Assembler/SmallKitchen</string>
+        <string>MedicalRoom/SmallResupplyStation</string>
+        <string>OxygenGenerator/SmallAdvancedSystemsOxygenGenerator</string>
+      </ItemIds>
+    </Category>
+</CategoryClasses>
+</Definitions>

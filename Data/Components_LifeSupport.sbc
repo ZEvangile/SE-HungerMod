@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Components>
+    <Component>
+      <Id>
+        <TypeId>Component</TypeId>
+        <SubtypeId>Construction</SubtypeId>
+      </Id>
+      <DisplayName>DisplayName_Item_ConstructionComponent</DisplayName>
+      <Icon>Textures\GUI\Icons\component\construction_components_component.dds</Icon>
+      <Size>
+        <X>0.2</X>
+        <Y>0.1</Y>
+        <Z>0.1</Z>
+      </Size>
+      <Mass>8</Mass>
+      <Volume>2</Volume>
+      <Model>Models\Components\construction_components_component.mwm</Model>
+      <MaxIntegrity>30</MaxIntegrity>
+      <DropProbability>0.5</DropProbability>
+    </Component>
+      <Component>
+      <Id>
+        <TypeId>Component</TypeId>
+        <SubtypeId>WarmFood</SubtypeId>
+      </Id>
+      <DisplayName>Warm Food</DisplayName>
+       <Icon>Textures\not\GUI\Food\FoodWarm.dds</Icon>
+      <Size>
+        <X>0.048</X>
+        <Y>0.048</Y>
+        <Z>0.1</Z>
+      </Size>
+      <Mass>1.2</Mass>
+      <Volume>1</Volume>
+      
+      <Model>Models\Ingots\nickel_ingot.mwm</Model>
+      <MaxIntegrity>30</MaxIntegrity>
+      <DropProbability>0.5</DropProbability>
+    </Component>
+
+    <Component>
+      <Id>
+        <TypeId>Component</TypeId>
+        <SubtypeId>FreshFood</SubtypeId>
+      </Id>
+      <DisplayName>Fresh Food</DisplayName>
+       <Icon>Textures\not\GUI\Food\FoodFresh.dds</Icon>
+      <Size>
+        <X>0.048</X>
+        <Y>0.048</Y>
+        <Z>0.1</Z>
+      </Size>
+      <Mass>1.2</Mass>
+      <Volume>1</Volume>
+      <Model>Models\Ingots\nickel_ingot.mwm</Model>
+      <MaxIntegrity>30</MaxIntegrity>
+      <DropProbability>0.5</DropProbability>
+    </Component>
+
+    <Component>
+      <Id>
+        <TypeId>Component</TypeId>
+        <SubtypeId>GummybearsFood</SubtypeId>
+      </Id>
+      <DisplayName>Gummy Bears</DisplayName>
+       <Icon>Textures\not\GUI\Food\FoodGummybears.dds</Icon>
+      <Size>
+        <X>0.048</X>
+        <Y>0.048</Y>
+        <Z>0.1</Z>
+      </Size>
+      <Mass>1.2</Mass>
+      <Volume>1</Volume>
+      <Model>Models\Ingots\nickel_ingot.mwm</Model>
+      <MaxIntegrity>30</MaxIntegrity>
+      <DropProbability>0.5</DropProbability>
+    </Component>
+
+    <Component>
+      <Id>
+        <TypeId>Component</TypeId>
+        <SubtypeId>SyntheticFood</SubtypeId>
+      </Id>
+      <DisplayName>Synthetic Food</DisplayName>
+       <Icon>Textures\not\GUI\Food\FoodSynthetic.dds</Icon>
+      <Size>
+        <X>0.048</X>
+        <Y>0.048</Y>
+        <Z>0.1</Z>
+      </Size>
+      <Mass>1.2</Mass>
+      <Volume>1</Volume>
+      <Model>Models\Ingots\nickel_ingot.mwm</Model>
+      <MaxIntegrity>30</MaxIntegrity>
+      <DropProbability>0.5</DropProbability>
+    </Component>
+  </Components>
+</Definitions>
