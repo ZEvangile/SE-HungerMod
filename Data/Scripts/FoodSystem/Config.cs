@@ -1,10 +1,9 @@
 using System;
 using System.Text;
 using System.IO;
-using VRage.ModAPI;
+using VRage.Game.ModAPI;
 using System.Xml.Serialization;
 using System.Collections.Generic;
-using Sandbox.ModAPI;
 
 namespace Rek.FoodSystem {
     public class Config {

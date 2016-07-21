@@ -7,25 +7,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
+using System.Xml.Serialization;
+using Sandbox.Definitions;
 using Sandbox.Common;
 using Sandbox.Common.Components;
 using Sandbox.Common.ObjectBuilders;
-using Sandbox.Definitions;
-using Sandbox.ModAPI;
-using Sandbox.ModAPI.Interfaces;
+using Sandbox.Game;
 using Sandbox.Game.Entities;
 using Sandbox.Game.Weapons;
 using Sandbox.Game.Gui;
-using Sandbox.Game;
+using Sandbox.ModAPI;
+using VRage;
 using VRage.Utils;
 using VRage.Game;
-using VRage.Library.Utils;
-using System.Xml.Serialization;
-using VRage.ModAPI.Ingame;
+using VRage.Game.ModAPI;
+using VRage.Game.ModAPI.Interfaces;
 using VRage.Game.Components;
-using VRage.ModAPI;
 using VRage.Game.Entity;
-using VRage;
+using VRage.Library.Utils;
+using VRage.ModAPI;
+using SpaceEngineers.Game.ModAPI;
 
 namespace Rek.FoodSystem
 {
@@ -52,122 +53,184 @@ namespace Rek.FoodSystem
         private static Config mConfig = Config.Load("hatm.cfg");
         private static PlayerDataStore mPlayerDataStore = new PlayerDataStore();
         private static List<IMyPlayer> mPlayers = new List<IMyPlayer>();
-        private static Dictionary<MyDefinitionId, float> mFoodTypes = new Dictionary<MyDefinitionId, float>();
-        private static Dictionary<MyDefinitionId, float> mBeverageTypes = new Dictionary<MyDefinitionId, float>();
+        private static Dictionary<string, float> mFoodTypes = new Dictionary<string, float>();
+        private static Dictionary<string, float> mBeverageTypes = new Dictionary<string, float>();
+		    private const string OBJECT_BUILDER_PREFIX = "ObjectBuilder_";
         private static bool mStarted = false;
         
         private MyGameTimer mTimer;
         
-        public static void RegisterFood(MyDefinitionId item, float hungerValue) {
-            mFoodTypes.Add(item, hungerValue);
+        public static void RegisterFood(string szItemName, float hungerValue)
+        {
+
+            mFoodTypes.Add(szItemName, hungerValue);
+
         }
         
-        public static void RegisterBeverage(MyDefinitionId item, float thirstValue) {
-            mBeverageTypes.Add(item, thirstValue);
+        public static void RegisterBeverage(string szItemName, float thirstValue)
+        {
+
+            mBeverageTypes.Add(szItemName, thirstValue);
+
         }
         
-        private static bool playerEatSomething(IMyEntity entity, PlayerData playerData) {
+        private static bool playerEatSomething(IMyEntity entity, PlayerData playerData)
+        {
+
             MyInventoryBase inventory = ((MyEntity)entity).GetInventoryBase();
             var items = inventory.GetItems();
 
-            foreach(IMyInventoryItem item in items ) {
+            foreach(IMyInventoryItem item in items)
+            {
+
                 float result;
-                if (mFoodTypes.TryGetValue(item.GetDefinitionId(), out result)) {
+
+                // Getting the item type
+
+                string szItemContent = item.Content.ToString();
+                string szTypeName = szItemContent.Substring(szItemContent.IndexOf(OBJECT_BUILDER_PREFIX)+OBJECT_BUILDER_PREFIX.Length);
+
+                // Type verification
+        
+                if(!szTypeName.Equals("Ingot"))continue;
+
+                if (mFoodTypes.TryGetValue(item.Content.SubtypeName, out result))
+                {
+
                     float canConsumeNum = Math.Min(((MAX_VALUE - playerData.hunger) / result), (float)item.Amount);
+
                     //MyAPIGateway.Utilities.ShowMessage("DEBUG", "canEat: " + canConsumeNum);
-                    if (canConsumeNum > 0) {
+
+                    if (canConsumeNum > 0)
+                    {
+
                         inventory.Remove(item, (MyFixedPoint)canConsumeNum);
                         playerData.hunger += result * (float)canConsumeNum;
+
                         return true;
+
                     }
+
                 }
+
             }
+
             return false;
+
         }
-        
-        private static bool playerDrinkSomething(IMyEntity entity, PlayerData playerData) {
+
+        private static bool playerDrinkSomething(IMyEntity entity, PlayerData playerData)
+        {
+
             MyInventoryBase inventory = ((MyEntity)entity).GetInventoryBase();
             var items = inventory.GetItems();
 
-            foreach(IMyInventoryItem item in items ) {
+            foreach(IMyInventoryItem item in items)
+            {
+
                 float result;
-                if(mBeverageTypes.TryGetValue(item.GetDefinitionId(), out result)) {
+
+                // Getting the item type
+
+                string szItemContent = item.Content.ToString();
+                string szTypeName = szItemContent.Substring(szItemContent.IndexOf(OBJECT_BUILDER_PREFIX)+OBJECT_BUILDER_PREFIX.Length);
+
+                // Type verification
+
+                if(!szTypeName.Equals("Ingot"))continue;
+
+                if(mBeverageTypes.TryGetValue(item.Content.SubtypeName, out result))
+                {
+
                     float canConsumeNum = Math.Min(((MAX_VALUE - playerData.thirst) / result), (float)item.Amount);
+
                     //MyAPIGateway.Utilities.ShowMessage("DEBUG", "canDrink: " + canConsumeNum);
-                    if (canConsumeNum > 0) {
+
+                    if (canConsumeNum > 0)
+                    {
+
                         inventory.Remove(item, (MyFixedPoint)canConsumeNum);
                         //inventory.RemoveItems(item.ItemId, canConsumeNum);
                         playerData.thirst += result * (float)canConsumeNum;
+
                         return true;
+
                     }
+
                 }   
-                
+
             }
+
             return false;
+
         }
         
-        private void init() {   
-            if (Utils.isDev()) {
-                MyAPIGateway.Utilities.ShowMessage("SERVER", "INIT");
-            }
+        private void init()
+        {
+
+            if (Utils.isDev())MyAPIGateway.Utilities.ShowMessage("SERVER", "INIT");
+
             MyAPIGateway.Multiplayer.RegisterMessageHandler(1338, AdminCommandHandler);
-            
+
             mTimer = new MyGameTimer();
-            
+
             float dayLen = MyAPIGateway.Session.SessionSettings.SunRotationIntervalMinutes;
+
             mHungerPerMinute = HUNGER_PER_DAY / dayLen;
             mThirstPerMinute = THIRST_PER_DAY / dayLen;
-            
+
             updatePlayerList();
-             
-            Server.RegisterBeverage(new MyDefinitionId(typeof(MyObjectBuilder_Ingot), "WaterFood"), 10f);
-            Server.RegisterBeverage(new MyDefinitionId(typeof(MyObjectBuilder_Ingot), "CoffeeFood"), 15f);
-            Server.RegisterFood(new MyDefinitionId(typeof(MyObjectBuilder_Ingot), "WarmFood"), 20f);
-            Server.RegisterFood(new MyDefinitionId(typeof(MyObjectBuilder_Ingot), "FreshFood"), 15f);
-            Server.RegisterFood(new MyDefinitionId(typeof(MyObjectBuilder_Ingot), "GummybearsFood"), 5f);
-            Server.RegisterFood(new MyDefinitionId(typeof(MyObjectBuilder_Ingot), "SyntheticFood"), 3f);
+
+            // We just need the subtype name, not the type (witch is Ingot for everyone)
+
+            Server.RegisterBeverage("WaterFood", 10f);
+            Server.RegisterBeverage("CoffeeFood", 15f);
+            Server.RegisterFood("WarmFood", 20f);
+            Server.RegisterFood("FreshFood", 15f);
+            Server.RegisterFood("GummybearsFood", 5f);
+            Server.RegisterFood("SyntheticFood", 3f);
+
         }
-        
+
         private void updatePlayerList() {
             // Update the player list
             mPlayers.Clear();
             MyAPIGateway.Players.GetPlayers(mPlayers);
         }
-        
+
         private IMyEntity GetCharacterEntity(IMyEntity entity) {
             if(entity is MyCockpit)
                 return (entity as MyCockpit).Pilot as IMyEntity;
-            
+
             if(entity is MyRemoteControl)
                 return (entity as MyRemoteControl).Pilot as IMyEntity;
-            
+
             //TODO: Add more pilotable entities
             return entity;
 
         }
-        
+
         private void updateFoodLogic() {
             foreach(IMyPlayer player in mPlayers) {
                 if(player.Controller != null &&  player.Controller.ControlledEntity != null &&  player.Controller.ControlledEntity.Entity != null) {
                     PlayerData playerData = mPlayerDataStore.get(player);
                     IMyEntity entity = GetCharacterEntity(player.Controller.ControlledEntity.Entity);
-                    
+
                     //MyAPIGateway.Utilities.ShowMessage("DEBUG", "State: " + character.MovementState);
                     //if(playerData.entity != null) {
                     //    MyAPIGateway.Utilities.ShowMessage  ("DEBUG", "Entity: " + playerData.entity.Closed);
                     //}
-                   
 
                     mCurrentModifier = DEFAULT_MODIFIER;
                     if(entity is IMyCharacter) {
                         MyObjectBuilder_Character character = entity.GetObjectBuilder(false) as MyObjectBuilder_Character;
-                        
+
                         if(playerData.entity == null || playerData.entity.Closed || playerData.entity.EntityId != entity.EntityId) {
                             playerData.hunger = 50f;
                             playerData.thirst = 50f;
                             playerData.entity = entity;
                         }   
-                        
+
                         switch(character.MovementState) {   
                             case MyCharacterMovementEnum.Running:
                             case MyCharacterMovementEnum.Backrunning:
@@ -191,13 +254,16 @@ namespace Rek.FoodSystem
                     } else if(playerData.entity != null || !playerData.entity.Closed) {
                         entity = playerData.entity;
                     }
-                    
-                    
-                    if(playerData.thirst <= 0 || playerData.hunger <= 0) {
-                        var destroyable = entity as Sandbox.ModAPI.Interfaces.IMyDestroyableObject;
+
+                    if(playerData.thirst <= 0 || playerData.hunger <= 0)
+                    {
+
+                        var destroyable = entity as IMyDestroyableObject;
+
                         destroyable.DoDamage(DAMAGE_SPEED, MyStringHash.GetOrCompute("Hunger/Thirst"), true);
+
                     }
-                    
+
                     if(playerData.hunger < 100) {
                         //Eat
                         playerEatSomething(entity, playerData);

@@ -1,6 +1,6 @@
 using System;
 using System.Text;
-using VRage.ModAPI;
+using VRage.Game.ModAPI;
 using System.Xml.Serialization;
 
 namespace Rek.FoodSystem {

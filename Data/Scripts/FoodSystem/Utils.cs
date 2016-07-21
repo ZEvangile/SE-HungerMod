@@ -11,15 +11,15 @@ using Sandbox.Common;
 using Sandbox.Common.Components;
 using Sandbox.Common.ObjectBuilders;
 using Sandbox.Definitions;
-using Sandbox.ModAPI;
-using Sandbox.ModAPI.Interfaces;
+using VRage.Game.ModAPI;
+using VRage.Game.ModAPI.Interfaces;
 using Sandbox.Game.Entities;
 using Sandbox.Game.Weapons;
 using Sandbox.Game.Gui;
 using Sandbox.Game;
 using VRage.Utils;
 using VRage.Library.Utils;
-using Ingame = Sandbox.ModAPI.Ingame;
+//using Ingame = Sandbox.ModAPI.Ingame;
 using System.Xml.Serialization;
 using VRage.Game;
 
