@@ -1,22 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Diagnostics;
-using System.Xml.Serialization;
-using Sandbox.Definitions;
-using Sandbox.Common;
-using Sandbox.Common.Components;
-using Sandbox.Common.ObjectBuilders;
-using Sandbox.Game;
 using Sandbox.Game.Entities;
-using Sandbox.Game.Weapons;
-using Sandbox.Game.Gui;
 using Sandbox.ModAPI;
+using VRage.Game.ModAPI.Ingame;
 using VRage;
 using VRage.Utils;
 using VRage.Game;
@@ -26,7 +13,6 @@ using VRage.Game.Components;
 using VRage.Game.Entity;
 using VRage.Library.Utils;
 using VRage.ModAPI;
-using SpaceEngineers.Game.ModAPI;
 
 namespace Rek.FoodSystem
 {
@@ -133,6 +119,9 @@ namespace Rek.FoodSystem
                 // Getting the item type
 
                 string szItemContent = item.Content.ToString();
+
+                //MyAPIGateway.Utilities.ShowMessage("DEBUG", "szItemContent: " + item.Content.SubtypeName);
+
                 string szTypeName = szItemContent.Substring(szItemContent.IndexOf(OBJECT_BUILDER_PREFIX)+OBJECT_BUILDER_PREFIX.Length);
 
                 // Type verification
@@ -181,7 +170,7 @@ namespace Rek.FoodSystem
 
             updatePlayerList();
 
-            // We just need the subtype name, not the type (witch is Ingot for everyone)
+            // We just need the subtype name, not the type (wich is Ingot for everyone)
 
             Server.RegisterBeverage("WaterFood", 10f);
             Server.RegisterBeverage("CoffeeFood", 15f);

@@ -1,25 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Text;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using System.IO;
-using System.Diagnostics;
-using Sandbox.Common;
-using Sandbox.Common.Components;
-using Sandbox.Common.ObjectBuilders;
-using Sandbox.Definitions;
+using Sandbox.ModAPI;
 using VRage.Game.ModAPI;
-using VRage.Game.ModAPI.Interfaces;
-using Sandbox.Game.Entities;
-using Sandbox.Game.Gui;
-using Sandbox.Game;
-using VRage.Utils;
-using System.Xml.Serialization;
 using VRage.Game.Components;
 using VRage.Game;
-using VRage;
 
 namespace Rek.FoodSystem
 {
