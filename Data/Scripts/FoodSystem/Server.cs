@@ -41,7 +41,7 @@ namespace Rek.FoodSystem
         private static List<IMyPlayer> mPlayers = new List<IMyPlayer>();
         private static Dictionary<string, float> mFoodTypes = new Dictionary<string, float>();
         private static Dictionary<string, float> mBeverageTypes = new Dictionary<string, float>();
-		    private const string OBJECT_BUILDER_PREFIX = "ObjectBuilder_";
+	private const string OBJECT_BUILDER_PREFIX = "ObjectBuilder_";
         private static bool mStarted = false;
         
         private MyGameTimer mTimer;
@@ -201,7 +201,7 @@ namespace Rek.FoodSystem
 
         private void updateFoodLogic() {
             foreach(IMyPlayer player in mPlayers) {
-                if(player.Controller != null &&  player.Controller.ControlledEntity != null &&  player.Controller.ControlledEntity.Entity != null) {
+                if(player.Controller != null && player.Controller.ControlledEntity != null && player.Controller.ControlledEntity.Entity != null) {
                     PlayerData playerData = mPlayerDataStore.get(player);
                     IMyEntity entity = GetCharacterEntity(player.Controller.ControlledEntity.Entity);
 
@@ -253,14 +253,20 @@ namespace Rek.FoodSystem
 
                     }
 
-                    if(playerData.hunger < 100) {
+                    if(playerData.hunger < 30)
+                    {
+
                         //Eat
                         playerEatSomething(entity, playerData);
+
                     }
                     
-                    if(playerData.thirst < 100) {
+                    if(playerData.thirst < 30)
+                    {
+
                         //Drink
                         playerDrinkSomething(entity, playerData);
+
                     }
                     
                     float elapsedMinutes = (float)(mTimer.Elapsed.Seconds / 60);
