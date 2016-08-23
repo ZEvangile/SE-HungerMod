@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Sandbox.Game.Entities;
 using Sandbox.ModAPI;
-using VRage.Game.ModAPI.Ingame;
 using VRage;
 using VRage.Utils;
 using VRage.Game;
@@ -23,7 +22,7 @@ namespace Rek.FoodSystem
         private int food_logic_skip = 0;
         private const int PLAYER_UPDATE_SKIP_TICKS = 60*30;
         private const int FOOD_LOGIC_SKIP_TICKS = 60*3;
-        
+
         private static float MAX_VALUE = 100;
         private const float THIRST_PER_DAY = 60f;
         private const float HUNGER_PER_DAY = 30f;
@@ -31,11 +30,11 @@ namespace Rek.FoodSystem
         private const float DEFAULT_MODIFIER = 1f;
         private const float RUNNING_MODIFIER = 1.5f;
         private const float SPRINTING_MODIFIER = 2f;
-        
+
         private float mHungerPerMinute;
         private float mThirstPerMinute;
         private float mCurrentModifier = 0;
-        
+
         private static Config mConfig = Config.Load("hatm.cfg");
         private static PlayerDataStore mPlayerDataStore = new PlayerDataStore();
         private static List<IMyPlayer> mPlayers = new List<IMyPlayer>();
@@ -43,23 +42,23 @@ namespace Rek.FoodSystem
         private static Dictionary<string, float> mBeverageTypes = new Dictionary<string, float>();
 	private const string OBJECT_BUILDER_PREFIX = "ObjectBuilder_";
         private static bool mStarted = false;
-        
+
         private MyGameTimer mTimer;
-        
+
         public static void RegisterFood(string szItemName, float hungerValue)
         {
 
             mFoodTypes.Add(szItemName, hungerValue);
 
         }
-        
+
         public static void RegisterBeverage(string szItemName, float thirstValue)
         {
 
             mBeverageTypes.Add(szItemName, thirstValue);
 
         }
-        
+
         private static bool playerEatSomething(IMyEntity entity, PlayerData playerData)
         {
 
@@ -77,7 +76,7 @@ namespace Rek.FoodSystem
                 string szTypeName = szItemContent.Substring(szItemContent.IndexOf(OBJECT_BUILDER_PREFIX)+OBJECT_BUILDER_PREFIX.Length);
 
                 // Type verification
-        
+
                 if(!szTypeName.Equals("Ingot"))continue;
 
                 if (mFoodTypes.TryGetValue(item.Content.SubtypeName, out result))
@@ -146,14 +145,14 @@ namespace Rek.FoodSystem
 
                     }
 
-                }   
+                }
 
             }
 
             return false;
 
         }
-        
+
         private void init()
         {
 
@@ -218,9 +217,9 @@ namespace Rek.FoodSystem
                             playerData.hunger = 50f;
                             playerData.thirst = 50f;
                             playerData.entity = entity;
-                        }   
+                        }
 
-                        switch(character.MovementState) {   
+                        switch(character.MovementState) {
                             case MyCharacterMovementEnum.Running:
                             case MyCharacterMovementEnum.Backrunning:
                             case MyCharacterMovementEnum.RunStrafingLeft:
@@ -231,15 +230,15 @@ namespace Rek.FoodSystem
                             case MyCharacterMovementEnum.RunningLeftFront:
                                 mCurrentModifier = RUNNING_MODIFIER;
                                 break;
-                            
+
                             case MyCharacterMovementEnum.Sprinting:
                                 mCurrentModifier = SPRINTING_MODIFIER;
                                 break;
-                                
+
                             case MyCharacterMovementEnum.Died:
                                 mCurrentModifier = 0;
                                 break;
-                        }        
+                        }
                     } else if(playerData.entity != null || !playerData.entity.Closed) {
                         entity = playerData.entity;
                     }
@@ -260,7 +259,7 @@ namespace Rek.FoodSystem
                         playerEatSomething(entity, playerData);
 
                     }
-                    
+
                     if(playerData.thirst < 30)
                     {
 
@@ -268,21 +267,21 @@ namespace Rek.FoodSystem
                         playerDrinkSomething(entity, playerData);
 
                     }
-                    
+
                     float elapsedMinutes = (float)(mTimer.Elapsed.Seconds / 60);
-                    
+
                     if (playerData.thirst > 0) {
                         float gain = Math.Min(elapsedMinutes * mThirstPerMinute * mCurrentModifier, playerData.thirst);
                         playerData.thirst -= gain;
                         //MyAPIGateway.Utilities.ShowMessage("DEBUG", "Thirst Gain: " + gain);
                     }
-                    
+
                     if (playerData.hunger > 0) {
                         playerData.hunger -= Math.Min(elapsedMinutes * mHungerPerMinute * (mCurrentModifier / 2), playerData.hunger);
                     }
-                    
+
                     mTimer = new MyGameTimer();
-                    
+
                     string message = MyAPIGateway.Utilities.SerializeToXML<PlayerData>(playerData);
                     MyAPIGateway.Multiplayer.SendMessageTo(
                         1337,
@@ -290,13 +289,13 @@ namespace Rek.FoodSystem
                         player.SteamUserId
                     );
                 }
-            } 
+            }
         }
-        
+
         public void AdminCommandHandler(byte[] data) {
             //Keen why do you not pass the steamId? :/
             Command command = MyAPIGateway.Utilities.SerializeFromXML<Command>(Encoding.Unicode.GetString(data));
-            
+
             /*if (Utils.isAdmin(command.sender)) {
                 var words = command.content.Trim().ToLower().Replace("/", "").Split(' ');
                 if (words.Length > 0 && words[0] == "hatm") {
@@ -309,26 +308,26 @@ namespace Rek.FoodSystem
                     }
                 }
             }*/
-            
+
         }
-        
+
         public override void UpdateAfterSimulation()
         {
             if(MyAPIGateway.Session == null)
                 return;
-        
+
             try {
                 if(MyAPIGateway.Session.OnlineMode == MyOnlineModeEnum.OFFLINE || MyAPIGateway.Multiplayer.IsServer) {
                     if (!mStarted) {
                         mStarted = true;
                         init();
                     }
-                    
+
                     if(++player_update_skip >= PLAYER_UPDATE_SKIP_TICKS) {
                         player_update_skip = 0;
                         updatePlayerList();
                     }
-                        
+
                     if(++food_logic_skip >= FOOD_LOGIC_SKIP_TICKS) {
                         food_logic_skip = 0;
                         updateFoodLogic();
@@ -339,7 +338,7 @@ namespace Rek.FoodSystem
                 //MyLog.Default.WriteLineAndConsole(MOD_NAME + " had an error while logging message='"+msg+"'\nLogger error: " + e.Message + "\n" + e.StackTrace);
             }
         }
-        
+
         protected override void UnloadData()
         {
             mStarted = false;
