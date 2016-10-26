@@ -77,7 +77,9 @@ namespace Rek.FoodSystem
         private void FoodUpdateMsgHandler(byte[] data)
         {
             mPlayerData = MyAPIGateway.Utilities.SerializeFromXML<PlayerData>(Encoding.Unicode.GetString(data));
-        
+
+            //MyAPIGateway.Utilities.ShowMessage("FoodSystem", "Hunger: " + Math.Floor(mPlayerData.hunger) + "% Thirst: " + Math.Floor(mPlayerData.thirst) + "%");
+
             if (mPlayerData.thirst <= 10 && mPlayerData.hunger <= 10) {
                 ShowNotification("Warning: You are Thirsty (" + Math.Floor(mPlayerData.thirst) + "%) and Hungry (" + Math.Floor(mPlayerData.hunger) + "%)", MyFontEnum.Red);
             } else if(mPlayerData.thirst <= 10) {

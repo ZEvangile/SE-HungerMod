@@ -22,7 +22,7 @@ namespace Rek.FoodSystem
         private int player_update_skip = 0;
         private int food_logic_skip = 0;
         private const int PLAYER_UPDATE_SKIP_TICKS = 60*30;
-        private const int FOOD_LOGIC_SKIP_TICKS = 60*3;
+        private const int FOOD_LOGIC_SKIP_TICKS = 60*10;
         
         private static float MAX_VALUE = 100;
         private const float THIRST_PER_DAY = 60f;
@@ -156,6 +156,7 @@ namespace Rek.FoodSystem
         
         private void init()
         {
+            mPlayerDataStore.Load();
 
             if (Utils.isDev())MyAPIGateway.Utilities.ShowMessage("SERVER", "INIT");
 
@@ -244,12 +245,14 @@ namespace Rek.FoodSystem
                         entity = playerData.entity;
                     }
 
-                    if(playerData.thirst <= 0 || playerData.hunger <= 0)
+                    float elapsedMinutes = (float)(mTimer.Elapsed.Seconds / 60);
+
+                    if (playerData.thirst <= 0 || playerData.hunger <= 0)
                     {
 
                         var destroyable = entity as IMyDestroyableObject;
 
-                        destroyable.DoDamage(DAMAGE_SPEED, MyStringHash.GetOrCompute("Hunger/Thirst"), true);
+                        destroyable.DoDamage(elapsedMinutes * DAMAGE_SPEED, MyStringHash.GetOrCompute("Hunger/Thirst"), true);
 
                     }
 
@@ -262,8 +265,6 @@ namespace Rek.FoodSystem
                         //Drink
                         playerDrinkSomething(entity, playerData);
                     }
-                    
-                    float elapsedMinutes = (float)(mTimer.Elapsed.Seconds / 60);
                     
                     if (playerData.thirst > 0) {
                         float gain = Math.Min(elapsedMinutes * mThirstPerMinute * mCurrentModifier, playerData.thirst);
@@ -341,6 +342,8 @@ namespace Rek.FoodSystem
             mPlayers.Clear();
             mFoodTypes.Clear();
             mBeverageTypes.Clear();
+
+            mPlayerDataStore.Save();
             mPlayerDataStore.clear();
         }
     }
