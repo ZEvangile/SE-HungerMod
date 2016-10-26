@@ -10,6 +10,9 @@ namespace Rek.FoodSystem {
         
         [XmlIgnoreAttribute]
         public IMyEntity entity;
+        
+        [XmlIgnoreAttribute]
+        public bool loaded;
 
         public PlayerData(ulong id)
         {
@@ -17,12 +20,14 @@ namespace Rek.FoodSystem {
             hunger = 100;
             entity = null;
             steamid = id;
+            loaded = false;
         }
 
         public PlayerData() {
             thirst = 100;
             hunger = 100;
             entity = null;
+            loaded = false;
         }
     }
 }

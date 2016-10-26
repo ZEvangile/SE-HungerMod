@@ -45,6 +45,8 @@ namespace Rek.FoodSystem
         public void Load()
         {
             try {
+                //MyAPIGateway.Utilities.ShowMessage("DEBUG", "Loading file");
+            
                 TextReader reader = MyAPIGateway.Utilities.ReadFileInLocalStorage(mFilename, typeof(PlayerDataStore));
                 string xmlText = reader.ReadToEnd();
                 reader.Close();
@@ -53,10 +55,12 @@ namespace Rek.FoodSystem
 
                 foreach (PlayerData x in tmp)
                 {
+                    //MyAPIGateway.Utilities.ShowMessage("DEBUG", "found player");
+                    x.loaded = true;
                     mPlayerData.Add(x.steamid, x);
                 }
             } catch(Exception e) {
-                //MyAPIGateway.Utilities.ShowMessage("ERROR", "Error: " + e.Message + "\n" + e.StackTrace);
+                MyAPIGateway.Utilities.ShowMessage("ERROR", "Error: " + e.Message + "\n" + e.StackTrace);
             }
         }
 

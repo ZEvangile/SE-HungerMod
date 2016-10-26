@@ -226,25 +226,26 @@ namespace Rek.FoodSystem
                     mCurrentModifier = DEFAULT_MODIFIER;
 
                     if(entity is IMyCharacter)
-		    {
+                    {
 
                         MyObjectBuilder_Character character = entity.GetObjectBuilder(false) as MyObjectBuilder_Character;
 
                         if(playerData.entity == null || playerData.entity.Closed || playerData.entity.EntityId != entity.EntityId)
-			{
-
-                            playerData.hunger = 50f;
-                            playerData.thirst = 50f;
+                        {   
+                            if(!playerData.loaded) {
+                                playerData.hunger = 50f;
+                                playerData.thirst = 50f;
+                            }
                             playerData.entity = entity;
 
                         }
 
                         switch(character.MovementState)
-			{
+                        {
 
-			    case MyCharacterMovementEnum.Flying:
-				mCurrentModifier = FLYING_MODIFIER;
-				break;
+                            case MyCharacterMovementEnum.Flying:
+                            mCurrentModifier = FLYING_MODIFIER;
+                            break;
                             case MyCharacterMovementEnum.Running:
                             case MyCharacterMovementEnum.Backrunning:
                             case MyCharacterMovementEnum.RunStrafingLeft:
@@ -265,37 +266,31 @@ namespace Rek.FoodSystem
                                 break;
                         }
                     }
-		    else if(playerData.entity != null || !playerData.entity.Closed) entity = playerData.entity;
+                    else if(playerData.entity != null || !playerData.entity.Closed) entity = playerData.entity;
 
                     float elapsedMinutes = (float)(mTimer.Elapsed.Seconds / 60);
 
-                    if (playerData.thirst <= 0 || playerData.hunger <= 0)
+                    // Rise the thirst
+                    if (playerData.thirst > 0)
                     {
+                        playerData.thirst -= elapsedMinutes * mThirstPerMinute * mCurrentModifier;
+                        playerData.thirst = Math.Max(playerData.thirst, 0);
+                    }
 
+                    // Rise the hunger
+                    if (playerData.hunger > 0)
+                    {
+                        playerData.hunger -= elapsedMinutes * mHungerPerMinute * mCurrentModifier;
+                        playerData.hunger = Math.Max(playerData.hunger, 0);
+                    }
 
-		    // Rise the thirst
-		    if (playerData.thirst > 0)
-		    {
-                playerData.thirst -= elapsedMinutes * mThirstPerMinute * mCurrentModifier;
-                playerData.thirst = Math.Max(playerData.thirst, 0);
-            }
-
-		    // Rise the hunger
-            if (playerData.hunger > 0)
-		    {
-                playerData.hunger -= elapsedMinutes * mHungerPerMinute * mCurrentModifier;
-                playerData.hunger = Math.Max(playerData.hunger, 0);
-            }
-
-		    // Eat
-
+                    // Eat
                     if(playerData.hunger < 30) playerEatSomething(entity, playerData);
 
-		    // Drink
+                    // Drink
+                   if(playerData.thirst < 30) playerDrinkSomething(entity, playerData);
 
-                    if(playerData.thirst < 30) playerDrinkSomething(entity, playerData);
-
-		    // Get some damages for not being well feed!
+                    // Get some damages for not being well feed!
 
 		    if(playerData.thirst <= 0 || playerData.hunger <= 0)
                     {
