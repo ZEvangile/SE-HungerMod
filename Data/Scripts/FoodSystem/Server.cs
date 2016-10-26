@@ -171,7 +171,7 @@ namespace Rek.FoodSystem
 
 			mCurrentModifier = NO_MODIFIER;
 
-            updatePlayerList();
+            //updatePlayerList();
 
             // We just need the subtype name, not the type (wich is Ingot for everyone)
 
@@ -184,10 +184,14 @@ namespace Rek.FoodSystem
 
         }
 
-        private void updatePlayerList() {
-            // Update the player list
+		// Update the player list
+
+        private void updatePlayerList()
+		{
+
             mPlayers.Clear();
             MyAPIGateway.Players.GetPlayers(mPlayers);
+
         }
 
         private IMyEntity GetCharacterEntity(IMyEntity entity) {
@@ -202,8 +206,14 @@ namespace Rek.FoodSystem
 
         }
 
-        private void updateFoodLogic() {
-            foreach(IMyPlayer player in mPlayers) {
+        private void updateFoodLogic()
+		{
+
+			updatePlayerList();
+
+            foreach(IMyPlayer player in mPlayers)
+			{
+
                 if(player.Controller != null && player.Controller.ControlledEntity != null && player.Controller.ControlledEntity.Entity != null) {
                     PlayerData playerData = mPlayerDataStore.get(player);
                     IMyEntity entity = GetCharacterEntity(player.Controller.ControlledEntity.Entity);
@@ -215,16 +225,23 @@ namespace Rek.FoodSystem
 
                     mCurrentModifier = DEFAULT_MODIFIER;
 
-                    if(entity is IMyCharacter) {
+                    if(entity is IMyCharacter)
+					{
+
                         MyObjectBuilder_Character character = entity.GetObjectBuilder(false) as MyObjectBuilder_Character;
 
-                        if(playerData.entity == null || playerData.entity.Closed || playerData.entity.EntityId != entity.EntityId) {
+                        if(playerData.entity == null || playerData.entity.Closed || playerData.entity.EntityId != entity.EntityId)
+						{
+
                             playerData.hunger = 50f;
                             playerData.thirst = 50f;
                             playerData.entity = entity;
+
                         }
 
-                        switch(character.MovementState) {
+                        switch(character.MovementState)
+						{
+
 							case MyCharacterMovementEnum.Flying:
 								mCurrentModifier = FLYING_MODIFIER;
 								break;
@@ -247,11 +264,45 @@ namespace Rek.FoodSystem
                                 mCurrentModifier = NO_MODIFIER;
                                 break;
                         }
-                    } else if(playerData.entity != null || !playerData.entity.Closed) {
-                        entity = playerData.entity;
+                    }
+					else if(playerData.entity != null || !playerData.entity.Closed) entity = playerData.entity;
+
+					// Get the elapsed time since last call
+
+					mTimer = new MyGameTimer();
+					float elapsedMinutes = (float)(mTimer.Elapsed.Seconds / 60);
+
+					// Rise the thirst
+
+					if (playerData.thirst > 0)
+					{
+
+                        playerData.thirst -= elapsedMinutes * mThirstPerMinute * mCurrentModifier;
+						playerData.thirst = Math.Max(playerData.thirst, 0);
+
                     }
 
-                    if(playerData.thirst <= 0 || playerData.hunger <= 0)
+					// Rise the hunger
+
+                    if (playerData.hunger > 0)
+					{
+
+                        playerData.hunger -= elapsedMinutes * mHungerPerMinute * mCurrentModifier;
+						playerData.hunger = Math.Max(playerData.hunger, 0);
+
+                    }
+
+					// Eat
+
+                    if(playerData.hunger < 30) playerEatSomething(entity, playerData);
+
+					// Drink
+
+                    if(playerData.thirst < 30) playerDrinkSomething(entity, playerData);
+
+					// Get some damages for not being well feed!
+
+					if(playerData.thirst <= 0 || playerData.hunger <= 0)
                     {
 
                         var destroyable = entity as IMyDestroyableObject;
@@ -260,44 +311,13 @@ namespace Rek.FoodSystem
 
                     }
 
-                    if(playerData.hunger < 30)
-                    {
-
-                        //Eat
-                        playerEatSomething(entity, playerData);
-
-                    }
-
-                    if(playerData.thirst < 30)
-                    {
-
-                        //Drink
-                        playerDrinkSomething(entity, playerData);
-
-                    }
-
-                    float elapsedMinutes = (float)(mTimer.Elapsed.Seconds / 60);
-
-                    if (playerData.thirst > 0) {
-                        playerData.thirst -= elapsedMinutes * mThirstPerMinute * mCurrentModifier;
-						
-						playerData.thirst = Math.Max(playerData.thirst, 0);
-                    }
-
-                    if (playerData.hunger > 0) {
-                        playerData.hunger -= elapsedMinutes * mHungerPerMinute * mCurrentModifier;
-						
-						playerData.hunger = Math.Max(playerData.hunger, 0);
-                    }
-
-                    mTimer = new MyGameTimer();
-
                     string message = MyAPIGateway.Utilities.SerializeToXML<PlayerData>(playerData);
                     MyAPIGateway.Multiplayer.SendMessageTo(
                         1337,
                         Encoding.Unicode.GetBytes(message),
                         player.SteamUserId
                     );
+
                 }
             }
         }
