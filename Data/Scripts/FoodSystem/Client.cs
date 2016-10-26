@@ -23,11 +23,9 @@ namespace Rek.FoodSystem
                 switch (words[0])
                 {
                     case "food":
-                        if (words.Length > 1 && words[1] == "detail") {
-                            MyAPIGateway.Utilities.ShowMessage("FoodSystem", "Hunger: " + mPlayerData.hunger + "% Thirst: " + mPlayerData.thirst + "%");
-                        } else {
-                            MyAPIGateway.Utilities.ShowMessage("FoodSystem", "Hunger: " + Math.Floor(mPlayerData.hunger) + "% Thirst: " + Math.Floor(mPlayerData.thirst) + "%");
-                        }
+                        if (words.Length > 1 && words[1] == "detail") MyAPIGateway.Utilities.ShowMessage("FoodSystem", "Hunger: " + mPlayerData.hunger + "% Thirst: " + mPlayerData.thirst + "%");
+                        else if (words.Length > 1 && words[1] == "sun") MyAPIGateway.Utilities.ShowMessage("FoodSystem", "Sun rotation interval: " + MyAPIGateway.Session.SessionSettings.SunRotationIntervalMinutes);
+                        else MyAPIGateway.Utilities.ShowMessage("FoodSystem", "Hunger: " + Math.Floor(mPlayerData.hunger) + "% Thirst: " + Math.Floor(mPlayerData.thirst) + "%");
                         break;
                         
                     /*
