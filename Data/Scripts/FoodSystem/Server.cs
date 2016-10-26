@@ -24,16 +24,18 @@ namespace Rek.FoodSystem
         private const int FOOD_LOGIC_SKIP_TICKS = 60*3;
 
         private static float MAX_VALUE = 100;
-        private const float THIRST_PER_DAY = 60f;
+        private const float THIRST_PER_DAY = 120f;
         private const float HUNGER_PER_DAY = 30f;
         private const float DAMAGE_SPEED = 5;
         private const float DEFAULT_MODIFIER = 1f;
+		private const float FLYING_MODIFIER = 1f;
         private const float RUNNING_MODIFIER = 1.5f;
         private const float SPRINTING_MODIFIER = 2f;
+		private const float NO_MODIFIER = 0;
 
         private float mHungerPerMinute;
         private float mThirstPerMinute;
-        private float mCurrentModifier = 0;
+        private float mCurrentModifier;
 
         private static Config mConfig = Config.Load("hatm.cfg");
         private static PlayerDataStore mPlayerDataStore = new PlayerDataStore();
@@ -167,6 +169,8 @@ namespace Rek.FoodSystem
             mHungerPerMinute = HUNGER_PER_DAY / dayLen;
             mThirstPerMinute = THIRST_PER_DAY / dayLen;
 
+			mCurrentModifier = NO_MODIFIER;
+
             updatePlayerList();
 
             // We just need the subtype name, not the type (wich is Ingot for everyone)
@@ -210,6 +214,7 @@ namespace Rek.FoodSystem
                     //}
 
                     mCurrentModifier = DEFAULT_MODIFIER;
+
                     if(entity is IMyCharacter) {
                         MyObjectBuilder_Character character = entity.GetObjectBuilder(false) as MyObjectBuilder_Character;
 
@@ -220,6 +225,9 @@ namespace Rek.FoodSystem
                         }
 
                         switch(character.MovementState) {
+							case MyCharacterMovementEnum.Flying:
+								mCurrentModifier = FLYING_MODIFIER;
+								break;
                             case MyCharacterMovementEnum.Running:
                             case MyCharacterMovementEnum.Backrunning:
                             case MyCharacterMovementEnum.RunStrafingLeft:
@@ -236,7 +244,7 @@ namespace Rek.FoodSystem
                                 break;
 
                             case MyCharacterMovementEnum.Died:
-                                mCurrentModifier = 0;
+                                mCurrentModifier = NO_MODIFIER;
                                 break;
                         }
                     } else if(playerData.entity != null || !playerData.entity.Closed) {
@@ -271,13 +279,15 @@ namespace Rek.FoodSystem
                     float elapsedMinutes = (float)(mTimer.Elapsed.Seconds / 60);
 
                     if (playerData.thirst > 0) {
-                        float gain = Math.Min(elapsedMinutes * mThirstPerMinute * mCurrentModifier, playerData.thirst);
-                        playerData.thirst -= gain;
-                        //MyAPIGateway.Utilities.ShowMessage("DEBUG", "Thirst Gain: " + gain);
+                        playerData.thirst -= elapsedMinutes * mThirstPerMinute * mCurrentModifier;
+						
+						playerData.thirst = Math.Max(playerData.thirst, 0);
                     }
 
                     if (playerData.hunger > 0) {
-                        playerData.hunger -= Math.Min(elapsedMinutes * mHungerPerMinute * (mCurrentModifier / 2), playerData.hunger);
+                        playerData.hunger -= elapsedMinutes * mHungerPerMinute * mCurrentModifier;
+						
+						playerData.hunger = Math.Max(playerData.hunger, 0);
                     }
 
                     mTimer = new MyGameTimer();
