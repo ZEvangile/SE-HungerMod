@@ -164,7 +164,9 @@ namespace Rek.FoodSystem
 
             mTimer = new MyGameTimer();
 
-            float dayLen = MyAPIGateway.Session.SessionSettings.SunRotationIntervalMinutes;
+	    // Minimum of 2h, because it's unplayable under....
+
+            float dayLen = Math.Max(MyAPIGateway.Session.SessionSettings.SunRotationIntervalMinutes, 120f);
 
             mHungerPerMinute = HUNGER_PER_DAY / dayLen;
             mThirstPerMinute = THIRST_PER_DAY / dayLen;
