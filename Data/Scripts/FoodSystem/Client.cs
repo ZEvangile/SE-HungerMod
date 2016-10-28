@@ -4,6 +4,8 @@ using Sandbox.ModAPI;
 using VRage.Game.ModAPI;
 using VRage.Game.Components;
 using VRage.Game;
+using Draygo.API;
+using VRageMath;
 
 namespace Rek.FoodSystem
 {
@@ -13,6 +15,7 @@ namespace Rek.FoodSystem
         private bool mStarted = false;
         private IMyHudNotification mNotify = null;
         private PlayerData mPlayerData = null;
+        private HUDTextAPI mHud;
 
         private void onMessageEntered(string messageText, ref bool sendToOthers)
         {
@@ -49,6 +52,8 @@ namespace Rek.FoodSystem
         }
         
         private void init() {
+            mHud = new HUDTextAPI(591816613);
+
             if (Utils.isDev()) {
                 MyAPIGateway.Utilities.ShowMessage("CLIENT", "INIT");
             }
@@ -74,6 +79,7 @@ namespace Rek.FoodSystem
         
         private void FoodUpdateMsgHandler(byte[] data)
         {
+            //MyAPIGateway.Utilities.ShowMessage("Debug", "Heartbeat: " + mHud.Heartbeat);
             mPlayerData = MyAPIGateway.Utilities.SerializeFromXML<PlayerData>(Encoding.Unicode.GetString(data));
 
             //MyAPIGateway.Utilities.ShowMessage("FoodSystem", "Hunger: " + Math.Floor(mPlayerData.hunger) + "% Thirst: " + Math.Floor(mPlayerData.thirst) + "%");
@@ -85,6 +91,13 @@ namespace Rek.FoodSystem
             } else if(mPlayerData.hunger <= 10) {
                 ShowNotification("Warning: You are Hungry (" + Math.Floor(mPlayerData.hunger) + "%)", MyFontEnum.Red);
             }
+
+            if (mHud.Heartbeat)
+            {
+                mHud.CreateAndSend(1, (mPlayerData.thirst <= 10) ? 10 : 1000, new Vector2D(-0.98f, -0.15f), "Thirst: " + ((mPlayerData.thirst <= 10) ? "<color=255,0,0>" : "<color=0,255,0>") + Math.Floor(mPlayerData.thirst) + "%");
+                mHud.CreateAndSend(2, (mPlayerData.hunger <= 10) ? 10 : 1000, new Vector2D(-0.98f, -0.2f), "Hunger: " + ((mPlayerData.hunger <= 10) ? " <color=255,0,0>" : "<color=0,255,0>") + Math.Floor(mPlayerData.hunger) + "% ");
+            }
+
         }
         
         public override void UpdateAfterSimulation()
@@ -111,6 +124,7 @@ namespace Rek.FoodSystem
         
         protected override void UnloadData()
         {
+            mHud.Close();
             mStarted = false;
             MyAPIGateway.Multiplayer.UnregisterMessageHandler(1337, FoodUpdateMsgHandler);
             MyAPIGateway.Utilities.MessageEntered -= onMessageEntered;
