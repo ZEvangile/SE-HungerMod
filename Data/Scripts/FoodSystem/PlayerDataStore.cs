@@ -9,10 +9,11 @@ namespace Rek.FoodSystem
     public class PlayerDataStore
     {
         private Dictionary<ulong, PlayerData> mPlayerData;
-        private const string mFilename = "playerData.xml";
+        private string mFilename;
     
         public PlayerDataStore()
         {
+            mFilename = "PlayerData.xml";
             mPlayerData = new Dictionary<ulong, PlayerData>();
         }
         
@@ -32,7 +33,8 @@ namespace Rek.FoodSystem
                 PlayerData[] tmp = new PlayerData[mPlayerData.Count];
                 mPlayerData.Values.CopyTo(tmp, 0);
 
-                TextWriter writer = MyAPIGateway.Utilities.WriteFileInLocalStorage(mFilename, typeof(PlayerDataStore));
+
+                TextWriter writer = MyAPIGateway.Utilities.WriteFileInWorldStorage(mFilename, typeof(PlayerDataStore));
                 writer.Write(MyAPIGateway.Utilities.SerializeToXML<PlayerData[]>(tmp));
                 writer.Flush();
                 writer.Close();
@@ -46,8 +48,11 @@ namespace Rek.FoodSystem
         {
             try {
                 //MyAPIGateway.Utilities.ShowMessage("DEBUG", "Loading file");
-            
-                TextReader reader = MyAPIGateway.Utilities.ReadFileInLocalStorage(mFilename, typeof(PlayerDataStore));
+
+                if (!MyAPIGateway.Utilities.FileExistsInWorldStorage(mFilename, typeof(PlayerDataStore)))
+                    return;
+
+                TextReader reader = MyAPIGateway.Utilities.ReadFileInWorldStorage(mFilename, typeof(PlayerDataStore));
                 string xmlText = reader.ReadToEnd();
                 reader.Close();
 
