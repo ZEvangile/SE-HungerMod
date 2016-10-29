@@ -235,8 +235,8 @@ namespace Rek.FoodSystem
                         if(playerData.entity == null || playerData.entity.Closed || playerData.entity.EntityId != entity.EntityId)
                         {   
                             if(!playerData.loaded) {
-                                playerData.hunger = 50f;
-                                playerData.thirst = 50f;
+                                playerData.hunger = 100f;
+                                playerData.thirst = 100f;
                             }
                             playerData.entity = entity;
 
