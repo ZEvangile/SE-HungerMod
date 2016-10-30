@@ -160,8 +160,6 @@ namespace Rek.FoodSystem
 
             MyAPIGateway.Multiplayer.RegisterMessageHandler(1338, AdminCommandHandler);
 
-            mTimer = new MyGameTimer();
-
 	    // Minimum of 2h, because it's unplayable under....
 
             float dayLen = Math.Max(MyAPIGateway.Session.SessionSettings.SunRotationIntervalMinutes, 120f);
@@ -181,6 +179,10 @@ namespace Rek.FoodSystem
             Server.RegisterFood("FreshFood", 15f);
             Server.RegisterFood("GummybearsFood", 5f);
             Server.RegisterFood("SyntheticFood", 3f);
+
+	    // Initiate the timer
+
+	    mTimer = new MyGameTimer();
 
         }
 
@@ -303,9 +305,6 @@ namespace Rek.FoodSystem
 
                     }
 
-		    // Reinit timer
-		    mTimer = new MyGameTimer();
-
                     string message = MyAPIGateway.Utilities.SerializeToXML<PlayerData>(playerData);
                     MyAPIGateway.Multiplayer.SendMessageTo(
                         1337,
@@ -314,7 +313,13 @@ namespace Rek.FoodSystem
                     );
 
                 }
+
             }
+
+	    // Reinitialize the timer
+
+	    mTimer = new MyGameTimer();
+
         }
 
         public void AdminCommandHandler(byte[] data) {
