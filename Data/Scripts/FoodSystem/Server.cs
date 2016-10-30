@@ -18,10 +18,8 @@ namespace Rek.FoodSystem
     [MySessionComponentDescriptor(MyUpdateOrder.AfterSimulation)]
     public class Server : MySessionComponentBase
     {
-        private int player_update_skip = 0;
         private int food_logic_skip = 0;
-        private const int PLAYER_UPDATE_SKIP_TICKS = 60*30;
-        private const int FOOD_LOGIC_SKIP_TICKS = 60*3;
+        private const int FOOD_LOGIC_SKIP_TICKS = 60*10;	// Updating every 10s
         private static float MAX_VALUE = 100;
         private const float THIRST_PER_DAY = 120f;
         private const float HUNGER_PER_DAY = 30f;
@@ -211,8 +209,6 @@ namespace Rek.FoodSystem
         private void updateFoodLogic()
 	{
 
-	    updatePlayerList();
-
             foreach(IMyPlayer player in mPlayers)
 	    {
 
@@ -233,11 +229,16 @@ namespace Rek.FoodSystem
                         MyObjectBuilder_Character character = entity.GetObjectBuilder(false) as MyObjectBuilder_Character;
 
                         if(playerData.entity == null || playerData.entity.Closed || playerData.entity.EntityId != entity.EntityId)
-                        {   
-                            if(!playerData.loaded) {
+                        {
+
+                            if (!playerData.loaded)
+                            {
+
                                 playerData.hunger = 100f;
                                 playerData.thirst = 100f;
+
                             }
+
                             playerData.entity = entity;
 
                         }
@@ -337,42 +338,68 @@ namespace Rek.FoodSystem
 
         public override void UpdateAfterSimulation()
         {
-            if(MyAPIGateway.Session == null)
-                return;
 
-            try {
-                if(MyAPIGateway.Session.OnlineMode == MyOnlineModeEnum.OFFLINE || MyAPIGateway.Multiplayer.IsServer) {
-                    if (!mStarted) {
-                        mStarted = true;
+            if (MyAPIGateway.Session == null) return;
+
+            try
+            {
+
+                if (MyAPIGateway.Session.OnlineMode == MyOnlineModeEnum.OFFLINE || MyAPIGateway.Multiplayer.IsServer)
+                {
+
+                    if (!mStarted)
+                    {
+
+			mStarted = true;
                         init();
+
+                        // Not FOOD_LOGIC_SKIP_TICKS because somehow TextAPI doesn't show up immediately
+
+                        food_logic_skip = FOOD_LOGIC_SKIP_TICKS - 5;
+
                     }
 
-                    if(++player_update_skip >= PLAYER_UPDATE_SKIP_TICKS) {
-                        player_update_skip = 0;
-                        updatePlayerList();
-                    }
+                    if (++food_logic_skip >= FOOD_LOGIC_SKIP_TICKS)
+                    {
 
-                    if(++food_logic_skip >= FOOD_LOGIC_SKIP_TICKS) {
                         food_logic_skip = 0;
+
+			updatePlayerList();
                         updateFoodLogic();
+
                     }
+
                 }
-            } catch(Exception e) {
+
+            }
+
+            catch (Exception e)
+            {
                 //MyAPIGateway.Utilities.ShowMessage("ERROR", "Logger error: " + e.Message + "\n" + e.StackTrace);
                 //MyLog.Default.WriteLineAndConsole(MOD_NAME + " had an error while logging message='"+msg+"'\nLogger error: " + e.Message + "\n" + e.StackTrace);
             }
+
+        }
+
+        // Saving datas when requested
+
+        public override void SaveData()
+        {
+
+            mPlayerDataStore.Save();
+
         }
 
         protected override void UnloadData()
         {
+
             mStarted = false;
             MyAPIGateway.Multiplayer.UnregisterMessageHandler(1338, AdminCommandHandler);
             mPlayers.Clear();
             mFoodTypes.Clear();
             mBeverageTypes.Clear();
-
-            mPlayerDataStore.Save();
             mPlayerDataStore.clear();
+
         }
     }
 }
