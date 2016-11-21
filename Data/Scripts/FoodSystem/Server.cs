@@ -34,7 +34,7 @@ namespace Rek.FoodSystem
         private float mThirstPerMinute;
         private float mCurrentModifier;
 
-        private static Config mConfig = Config.Load("hatm.cfg");
+        //private static Config mConfig = Config.Load("hatm.cfg");
         private static PlayerDataStore mPlayerDataStore = new PlayerDataStore();
         private static List<IMyPlayer> mPlayers = new List<IMyPlayer>();
         private static Dictionary<string, float> mFoodTypes = new Dictionary<string, float>();
