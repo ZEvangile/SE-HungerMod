@@ -1,13 +1,17 @@
 <?xml version="1.0"?>
 <Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-<Blueprints>
-  <Blueprint>
+  <Blueprints>
+
+    <!-- Water transformation Blueprints -->
+
+    <Blueprint>
       <Id>
         <TypeId>BlueprintDefinition</TypeId>
         <SubtypeId>IceOreToWater</SubtypeId>
       </Id>
       <DisplayName>GreyWater</DisplayName>
       <Icon>Textures\GUI\Icons\ingot\gravel_ingot.dds</Icon>
+
       <Prerequisites>
         <Item Amount="1" TypeId="Ore" SubtypeId="Ice" />
       </Prerequisites>
@@ -15,13 +19,15 @@
       <Result Amount="0.8" TypeId="Ingot" SubtypeId="GreyWater" />
       <BaseProductionTimeInSeconds>0.5</BaseProductionTimeInSeconds>
     </Blueprint>
+
     <Blueprint>
       <Id>
         <TypeId>BlueprintDefinition</TypeId>
         <SubtypeId>GreyToCleanWater</SubtypeId>
       </Id>
-      <DisplayName>GreyWater</DisplayName>
+      <DisplayName>Cleaning water</DisplayName>
       <Icon>Textures\GUI\Icons\ingot\gravel_ingot.dds</Icon>
+
       <Prerequisites>
         <Item Amount="0.1" TypeId="Ingot" SubtypeId="GreyWater" />
       </Prerequisites>
@@ -30,6 +36,8 @@
       <BaseProductionTimeInSeconds>1</BaseProductionTimeInSeconds>
     </Blueprint>
 
+    <!-- Nutrient Paste Blueprint -->
+
     <Blueprint>
       <Id>
         <TypeId>BlueprintDefinition</TypeId>
@@ -37,6 +45,7 @@
       </Id>
       <DisplayName>Nutrient</DisplayName>
       <Icon>Textures\GUI\Icons\ingot\gravel_ingot.dds</Icon>
+
       <Prerequisites>
         <Item Amount="0.1" TypeId="Ingot" SubtypeId="CleanWater" />
         <Item Amount="2" TypeId="Ingot" SubtypeId="Stone" />
@@ -47,6 +56,8 @@
       <BaseProductionTimeInSeconds>1</BaseProductionTimeInSeconds>
     </Blueprint>
 
+    <!-- Fresh Vegetables and Fruits Blueprint -->
+
     <Blueprint>
       <Id>
         <TypeId>BlueprintDefinition</TypeId>
@@ -54,6 +65,7 @@
       </Id>
       <DisplayName>Nutrient</DisplayName>
       <Icon>Textures\GUI\Icons\ingot\gravel_ingot.dds</Icon>
+
       <Prerequisites>
         <Item Amount="0.05" TypeId="Ingot" SubtypeId="CleanWater" />
         <Item Amount="1" TypeId="Ingot" SubtypeId="Stone" />
@@ -73,10 +85,12 @@
       </Id>
       <DisplayName>Warm Food</DisplayName>
       <Icon>Textures\not\GUI\Food\FoodWarm.dds</Icon>
+
       <Prerequisites>
         <Item Amount="3" TypeId="Ingot" SubtypeId="NutrientPaste" />
         <Item Amount="7" TypeId="Ingot" SubtypeId="SubFresh" />
       </Prerequisites>
+
       <Result Amount="1" TypeId="Ingot" SubtypeId="WarmFood" />
       <BaseProductionTimeInSeconds>10</BaseProductionTimeInSeconds>
     </Blueprint>
@@ -88,12 +102,30 @@
       </Id>
       <DisplayName>Fresh Food</DisplayName>
       <Icon>Textures\not\GUI\Food\FoodFresh.dds</Icon>
+
       <Prerequisites>
-        
         <Item Amount="12" TypeId="Ingot" SubtypeId="SubFresh" />
       </Prerequisites>
+
       <Result Amount="1" TypeId="Ingot" SubtypeId="FreshFood" />
       <BaseProductionTimeInSeconds>5</BaseProductionTimeInSeconds>
+    </Blueprint>
+
+    <Blueprint>
+      <Id>
+        <TypeId>BlueprintDefinition</TypeId>
+        <SubtypeId>GummyFood</SubtypeId>
+      </Id>
+      <DisplayName>Gummy Bears</DisplayName>
+      <Icon>Textures\not\GUI\Food\FoodGummybears.dds</Icon>
+
+      <Prerequisites>
+        <Item Amount="1" TypeId="Ingot" SubtypeId="SubFresh" />
+        <Item Amount="1" TypeId="Ingot" SubtypeId="NutrientPaste" />
+      </Prerequisites>
+
+      <Result Amount="1" TypeId="Ingot" SubtypeId="GummybearsFood" />
+      <BaseProductionTimeInSeconds>10</BaseProductionTimeInSeconds>
     </Blueprint>
 
     <Blueprint>
@@ -103,56 +135,49 @@
       </Id>
       <DisplayName>Synthetic Food</DisplayName>
       <Icon>Textures\not\GUI\Food\FoodSynthetic.dds</Icon>
+
       <Prerequisites>
-        
         <Item Amount="10" TypeId="Ingot" SubtypeId="NutrientPaste" />
       </Prerequisites>
+
       <Result Amount="1" TypeId="Ingot" SubtypeId="SyntheticFood" />
       <BaseProductionTimeInSeconds>2</BaseProductionTimeInSeconds>
     </Blueprint>
-        <Blueprint>
-      <Id>
-        <TypeId>BlueprintDefinition</TypeId>
-        <SubtypeId>GummyFood</SubtypeId>
-      </Id>
-      <DisplayName>Gummy Bears</DisplayName>
-      <Icon>Textures\not\GUI\Food\FoodGummybears.dds</Icon>
-      <Prerequisites>
-        <Item Amount="1" TypeId="Ingot" SubtypeId="SubFresh" />
-        <Item Amount="1" TypeId="Ingot" SubtypeId="NutrientPaste" />
-      </Prerequisites>
-      <Result Amount="1" TypeId="Ingot" SubtypeId="GummybearsFood" />
-      <BaseProductionTimeInSeconds>10</BaseProductionTimeInSeconds>
-    </Blueprint>
 
-        <Blueprint>
+    <!-- Drink Blueprints -->
+
+    <Blueprint>
       <Id>
         <TypeId>BlueprintDefinition</TypeId>
         <SubtypeId>WaterFood</SubtypeId>
       </Id>
-      <DisplayName>Drinkable Water</DisplayName>
+      <DisplayName>Pack Drinking Water</DisplayName>
       <Icon>Textures\not\GUI\Food\LiquidWater.dds</Icon>
+
       <Prerequisites>
-        
         <Item Amount="1" TypeId="Ingot" SubtypeId="CleanWater" />
       </Prerequisites>
+
       <Result Amount="1" TypeId="Ingot" SubtypeId="WaterFood" />
       <BaseProductionTimeInSeconds>1</BaseProductionTimeInSeconds>
     </Blueprint>
 
-        <Blueprint>
+    <Blueprint>
       <Id>
         <TypeId>BlueprintDefinition</TypeId>
         <SubtypeId>CoffeeFood</SubtypeId>
       </Id>
-      <DisplayName>Coffee</DisplayName>
+      <DisplayName>Make Coffee</DisplayName>
       <Icon>Textures\not\GUI\Food\LiquidCoffee.dds</Icon>
+
       <Prerequisites>
         <Item Amount="1" TypeId="Ingot" SubtypeId="SubFresh" />
         <Item Amount="1" TypeId="Ingot" SubtypeId="CleanWater" />
       </Prerequisites>
+
       <Result Amount="1" TypeId="Ingot" SubtypeId="CoffeeFood" />
       <BaseProductionTimeInSeconds>5</BaseProductionTimeInSeconds>
     </Blueprint>
+
   </Blueprints>
 </Definitions>
