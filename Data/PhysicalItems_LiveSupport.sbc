@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <PhysicalItems>
+
+    <!-- Waters -->
+
     <PhysicalItem>
       <Id>
         <TypeId>Ingot</TypeId>
@@ -16,14 +19,13 @@
       <Mass>1.1</Mass>
       <Volume>1</Volume>
       <Model>Models\Ingots\platinum_ingot.mwm</Model>
-      
     </PhysicalItem>
     <PhysicalItem>
       <Id>
         <TypeId>Ingot</TypeId>
         <SubtypeId>CleanWater</SubtypeId>
       </Id>
-      <DisplayName>Drinkable Water</DisplayName>
+      <DisplayName>Clean Water</DisplayName>
       <Icon>Textures\not\GUI\Canister\WaterClean.dds</Icon>
       <Size>
         <X>0.036</X>
@@ -33,8 +35,10 @@
       <Mass>1</Mass>
       <Volume>1</Volume>
       <Model>Models\Ingots\platinum_ingot.mwm</Model>
-      
     </PhysicalItem>
+
+    <!-- Nutrients -->
+
     <PhysicalItem>
       <Id>
         <TypeId>Ingot</TypeId>
@@ -68,9 +72,9 @@
       <Model>Models\Ingots\nickel_ingot.mwm</Model>
     </PhysicalItem>
 
-<!-- Food -->
+    <!-- Foods -->
 
-  <PhysicalItem>
+    <PhysicalItem>
       <Id>
         <TypeId>Ingot</TypeId>
         <SubtypeId>WarmFood</SubtypeId>
@@ -86,7 +90,6 @@
       <Volume>1</Volume>
       <Model>Models\Ingots\nickel_ingot.mwm</Model>
     </PhysicalItem>
-
     <PhysicalItem>
       <Id>
         <TypeId>Ingot</TypeId>
@@ -103,7 +106,6 @@
       <Volume>1</Volume>
       <Model>Models\Ingots\nickel_ingot.mwm</Model>
     </PhysicalItem>
-
     <PhysicalItem>
       <Id>
         <TypeId>Ingot</TypeId>
@@ -120,7 +122,6 @@
       <Volume>1</Volume>
       <Model>Models\Ingots\nickel_ingot.mwm</Model>
     </PhysicalItem>
-
     <PhysicalItem>
       <Id>
         <TypeId>Ingot</TypeId>
@@ -138,20 +139,22 @@
       <Model>Models\Ingots\nickel_ingot.mwm</Model>
     </PhysicalItem>
 
+    <!-- Drinks -->
+
     <PhysicalItem>
       <Id>
         <TypeId>Ingot</TypeId>
         <SubtypeId>WaterFood</SubtypeId>
       </Id>
-      <DisplayName>Water</DisplayName>
+      <DisplayName>Drinking Water Packet</DisplayName>
        <Icon>Textures\not\GUI\Food\LiquidWater.dds</Icon>
       <Size>
         <X>0.048</X>
         <Y>0.048</Y>
         <Z>0.1</Z>
       </Size>
-      <Mass>0.5</Mass>
-      <Volume>0.5</Volume>
+      <Mass>1</Mass>
+      <Volume>1</Volume>
       <Model>Models\Ingots\nickel_ingot.mwm</Model>
     </PhysicalItem>
     <PhysicalItem>
@@ -166,8 +169,8 @@
         <Y>0.048</Y>
         <Z>0.1</Z>
       </Size>
-      <Mass>0.53</Mass>
-      <Volume>0.5</Volume>
+      <Mass>1.06</Mass>
+      <Volume>1</Volume>
       <Model>Models\Ingots\nickel_ingot.mwm</Model>
     </PhysicalItem>
 
