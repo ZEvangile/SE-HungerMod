@@ -43,7 +43,7 @@ namespace Rek.FoodSystem
 
         private MyGameTimer mTimer;
 
-        public static void RegisterFood(string szItemName, float hungerValue)
+        /*public static void RegisterFood(string szItemName, float hungerValue)
         {
             mFoodTypes.Add(szItemName, hungerValue);
         }
@@ -52,6 +52,8 @@ namespace Rek.FoodSystem
         {
             mBeverageTypes.Add(szItemName, thirstValue);
         }
+        
+        */
 
         private static bool playerEatSomething(IMyEntity entity, PlayerData playerData)
         {
@@ -137,6 +139,7 @@ namespace Rek.FoodSystem
             if (Utils.isDev()) MyAPIGateway.Utilities.ShowMessage("SERVER", "INIT");
 
             MyAPIGateway.Multiplayer.RegisterMessageHandler(1338, AdminCommandHandler);
+            MyAPIGateway.Utilities.RegisterMessageHandler(1339, NeedsApiHandler);
 
             // Minimum of 2h, because it's unplayable under....
 
@@ -144,18 +147,28 @@ namespace Rek.FoodSystem
 
             mHungerPerMinute = HUNGER_PER_DAY / dayLen;
             mThirstPerMinute = THIRST_PER_DAY / dayLen;
+            
+            NeedsApi api = new NeedsApi();
 
             // Registering drinks
-
-            Server.RegisterBeverage("WaterFood", 10f);
-            Server.RegisterBeverage("CoffeeFood", 15f);
+            
+            api.RegisterDrinkableItem("WaterFood", 10f);
+            api.RegisterDrinkableItem("CoffeeFood", 15f);
+             
+            //Server.RegisterBeverage("WaterFood", 10f);
+            //Server.RegisterBeverage("CoffeeFood", 15f);
 
             // Registering foods
+            
+            api.RegisterDrinkableItem("WarmFood", 20f);
+            api.RegisterDrinkableItem("FreshFood", 15f);
+            api.RegisterDrinkableItem("GummybearsFood", 5f);
+            api.RegisterDrinkableItem("SyntheticFood", 3f);
 
-            Server.RegisterFood("WarmFood", 20f);
-            Server.RegisterFood("FreshFood", 15f);
-            Server.RegisterFood("GummybearsFood", 5f);
-            Server.RegisterFood("SyntheticFood", 3f);
+            //Server.RegisterFood("WarmFood", 20f);
+            //Server.RegisterFood("FreshFood", 15f);
+            //Server.RegisterFood("GummybearsFood", 5f);
+            //Server.RegisterFood("SyntheticFood", 3f);
 
             // Initiate the timer
 
@@ -275,10 +288,10 @@ namespace Rek.FoodSystem
                         destroyable.DoDamage(DAMAGE_SPEED, MyStringHash.GetOrCompute("Hunger/Thirst"), true);
                     }
 
-                    string message = MyAPIGateway.Utilities.SerializeToXML<PlayerData>(playerData);
+                    byte[] message = MyAPIGateway.Utilities.SerializeToBinary<PlayerData>(playerData);
                     MyAPIGateway.Multiplayer.SendMessageTo(
                         1337,
-                        Encoding.Unicode.GetBytes(message),
+                        message,
                         player.SteamUserId
                     );
                 }
@@ -292,7 +305,7 @@ namespace Rek.FoodSystem
         public void AdminCommandHandler(byte[] data)
         {
             //Keen why do you not pass the steamId? :/
-            Command command = MyAPIGateway.Utilities.SerializeFromXML<Command>(Encoding.Unicode.GetString(data));
+            Command command = MyAPIGateway.Utilities.SerializeFromBinary<Command>(data);
 
             /*if (Utils.isAdmin(command.sender)) {
                 var words = command.content.Trim().ToLower().Replace("/", "").Split(' ');
@@ -306,6 +319,25 @@ namespace Rek.FoodSystem
                     }
                 }
             }*/
+        }
+        
+        public void NeedsApiHandler(object data)
+        {
+            //mFoodTypes.Add(szItemName, hungerValue);
+            //mBeverageTypes.Add(szItemName, thirstValue);
+            
+            NeedsApi.Event e = (NeedsApi.Event)data;
+            
+            if (e.type == NeedsApi.Event.Type.RegisterEdibleItem) {
+                NeedsApi.RegisterEdibleItemEvent edibleItemEvent = (NeedsApi.RegisterEdibleItemEvent)e.payload;
+                //MyAPIGateway.Utilities.ShowMessage("DEBUG", "EdibleItem " + edibleItemEvent.item + " registered");
+                mFoodTypes.Add(edibleItemEvent.item, edibleItemEvent.value);
+ 
+            } else if(e.type == NeedsApi.Event.Type.RegisterDrinkableItem) {
+                NeedsApi.RegisterDrinkableItemEvent drinkableItemEvent = (NeedsApi.RegisterDrinkableItemEvent)e.payload;
+                //MyAPIGateway.Utilities.ShowMessage("DEBUG", "DrinkableItem " + drinkableItemEvent.item + " registered");
+                mBeverageTypes.Add(drinkableItemEvent.item, drinkableItemEvent.value);
+            }
         }
 
         public override void UpdateAfterSimulation()
