@@ -288,10 +288,10 @@ namespace Rek.FoodSystem
                         destroyable.DoDamage(DAMAGE_SPEED, MyStringHash.GetOrCompute("Hunger/Thirst"), true);
                     }
 
-                    byte[] message = MyAPIGateway.Utilities.SerializeToBinary<PlayerData>(playerData);
+                    string message = MyAPIGateway.Utilities.SerializeToXML<PlayerData>(playerData);
                     MyAPIGateway.Multiplayer.SendMessageTo(
                         1337,
-                        message,
+                        Encoding.Unicode.GetBytes(message),
                         player.SteamUserId
                     );
                 }
@@ -305,7 +305,7 @@ namespace Rek.FoodSystem
         public void AdminCommandHandler(byte[] data)
         {
             //Keen why do you not pass the steamId? :/
-            Command command = MyAPIGateway.Utilities.SerializeFromBinary<Command>(data);
+            Command command = MyAPIGateway.Utilities.SerializeFromXML<Command>(Encoding.Unicode.GetString(data));
 
             /*if (Utils.isAdmin(command.sender)) {
                 var words = command.content.Trim().ToLower().Replace("/", "").Split(' ');

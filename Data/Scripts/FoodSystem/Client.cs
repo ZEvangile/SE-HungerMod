@@ -51,10 +51,10 @@ namespace Rek.FoodSystem
 
                         Command cmd = new Command(MyAPIGateway.Multiplayer.MyId, messageText);
 
-                        byte[] message = MyAPIGateway.Utilities.SerializeToBinary<Command>(cmd);
+                        string message = MyAPIGateway.Utilities.SerializeToXML<Command>(cmd);
                         MyAPIGateway.Multiplayer.SendMessageToServer(
                             1338,
-                            message
+                            Encoding.Unicode.GetBytes(message)
                         );
                         break;
                 }
@@ -93,7 +93,7 @@ namespace Rek.FoodSystem
         private void FoodUpdateMsgHandler(byte[] data)
         {
             //MyAPIGateway.Utilities.ShowMessage("Debug", "Heartbeat: " + mHud.Heartbeat);
-            mPlayerData = MyAPIGateway.Utilities.SerializeFromBinary<PlayerData>(data);
+            mPlayerData = MyAPIGateway.Utilities.SerializeFromXML<PlayerData>(Encoding.Unicode.GetString(data));
 
             //MyAPIGateway.Utilities.ShowMessage("FoodSystem", "Hunger: " + Math.Floor(mPlayerData.hunger) + "% Thirst: " + Math.Floor(mPlayerData.thirst) + "%");
 
