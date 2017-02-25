@@ -147,23 +147,23 @@ namespace Rek.FoodSystem
 
             mHungerPerMinute = HUNGER_PER_DAY / dayLen;
             mThirstPerMinute = THIRST_PER_DAY / dayLen;
-            
+
             NeedsApi api = new NeedsApi();
 
             // Registering drinks
-            
+
             api.RegisterDrinkableItem("WaterFood", 10f);
             api.RegisterDrinkableItem("CoffeeFood", 15f);
-             
+
             //Server.RegisterBeverage("WaterFood", 10f);
             //Server.RegisterBeverage("CoffeeFood", 15f);
 
             // Registering foods
-            
-            api.RegisterDrinkableItem("WarmFood", 20f);
-            api.RegisterDrinkableItem("FreshFood", 15f);
-            api.RegisterDrinkableItem("GummybearsFood", 5f);
-            api.RegisterDrinkableItem("SyntheticFood", 3f);
+
+            api.RegisterEdibleItem("WarmFood", 20f);
+            api.RegisterEdibleItem("FreshFood", 15f);
+            api.RegisterEdibleItem("GummybearsFood", 5f);
+            api.RegisterEdibleItem("SyntheticFood", 3f);
 
             //Server.RegisterFood("WarmFood", 20f);
             //Server.RegisterFood("FreshFood", 15f);
@@ -320,20 +320,22 @@ namespace Rek.FoodSystem
                 }
             }*/
         }
-        
+
         public void NeedsApiHandler(object data)
         {
             //mFoodTypes.Add(szItemName, hungerValue);
             //mBeverageTypes.Add(szItemName, thirstValue);
-            
+
             NeedsApi.Event e = (NeedsApi.Event)data;
-            
-            if (e.type == NeedsApi.Event.Type.RegisterEdibleItem) {
+
+            if (e.type == NeedsApi.Event.Type.RegisterEdibleItem)
+            {
                 NeedsApi.RegisterEdibleItemEvent edibleItemEvent = (NeedsApi.RegisterEdibleItemEvent)e.payload;
                 //MyAPIGateway.Utilities.ShowMessage("DEBUG", "EdibleItem " + edibleItemEvent.item + " registered");
                 mFoodTypes.Add(edibleItemEvent.item, edibleItemEvent.value);
- 
-            } else if(e.type == NeedsApi.Event.Type.RegisterDrinkableItem) {
+            }
+            else if (e.type == NeedsApi.Event.Type.RegisterDrinkableItem)
+            {
                 NeedsApi.RegisterDrinkableItemEvent drinkableItemEvent = (NeedsApi.RegisterDrinkableItemEvent)e.payload;
                 //MyAPIGateway.Utilities.ShowMessage("DEBUG", "DrinkableItem " + drinkableItemEvent.item + " registered");
                 mBeverageTypes.Add(drinkableItemEvent.item, drinkableItemEvent.value);
