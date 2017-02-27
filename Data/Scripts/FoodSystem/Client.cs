@@ -20,7 +20,7 @@ namespace Rek.FoodSystem
 
         private void onMessageEntered(string messageText, ref bool sendToOthers)
         {
-            sendToOthers = false;
+            sendToOthers = true;
 
             if (!messageText.StartsWith("/")) return;
 
@@ -47,15 +47,17 @@ namespace Rek.FoodSystem
                         break;
                     */
 
-                    default:
+                    case "needs":
+                        sendToOthers = false;
+                        if (words.Length > 1) {
+                            Command cmd = new Command(MyAPIGateway.Multiplayer.MyId, words[1]);
 
-                        Command cmd = new Command(MyAPIGateway.Multiplayer.MyId, messageText);
-
-                        string message = MyAPIGateway.Utilities.SerializeToXML<Command>(cmd);
-                        MyAPIGateway.Multiplayer.SendMessageToServer(
-                            1338,
-                            Encoding.Unicode.GetBytes(message)
-                        );
+                            string message = MyAPIGateway.Utilities.SerializeToXML<Command>(cmd);
+                            MyAPIGateway.Multiplayer.SendMessageToServer(
+                                1338,
+                                Encoding.Unicode.GetBytes(message)
+                            );
+                        }
                         break;
                 }
             }
