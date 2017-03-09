@@ -331,13 +331,13 @@ namespace Rek.FoodSystem
             if (e.type == NeedsApi.Event.Type.RegisterEdibleItem)
             {
                 NeedsApi.RegisterEdibleItemEvent edibleItemEvent = (NeedsApi.RegisterEdibleItemEvent)e.payload;
-                MyAPIGateway.Utilities.ShowMessage("DEBUG", "EdibleItem " + edibleItemEvent.item + "(" +  edibleItemEvent.value + ") registered");
+                //MyAPIGateway.Utilities.ShowMessage("DEBUG", "EdibleItem " + edibleItemEvent.item + "(" +  edibleItemEvent.value + ") registered");
                 mFoodTypes.Add(edibleItemEvent.item, edibleItemEvent.value);
             }
             else if (e.type == NeedsApi.Event.Type.RegisterDrinkableItem)
             {
                 NeedsApi.RegisterDrinkableItemEvent drinkableItemEvent = (NeedsApi.RegisterDrinkableItemEvent)e.payload;
-                MyAPIGateway.Utilities.ShowMessage("DEBUG", "DrinkableItem " + drinkableItemEvent.item + "(" +  drinkableItemEvent.value + ") registered");
+                //MyAPIGateway.Utilities.ShowMessage("DEBUG", "DrinkableItem " + drinkableItemEvent.item + "(" +  drinkableItemEvent.value + ") registered");
                 mBeverageTypes.Add(drinkableItemEvent.item, drinkableItemEvent.value);
             }
         }
