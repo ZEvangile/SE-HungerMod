@@ -205,7 +205,7 @@
       <DamagedSound>ParticleHeavyMech</DamagedSound>
     </Definition>
 	
-    <Definition xsi:type="MyObjectBuilder_MedicalRoomDefinition">
+    <!--<Definition xsi:type="MyObjectBuilder_MedicalRoomDefinition">
       <Id>
         <TypeId>MedicalRoom</TypeId>
         <SubtypeId>SmallResupplyStation</SubtypeId>
@@ -312,6 +312,6 @@
       <DamagedSound>ParticleWeapExpl</DamagedSound>
       <GenerateSound>ArcBlockOxyGenProcess</GenerateSound>
       <IdleSound>ArcBlockOxyGenIdle</IdleSound>
-    </Definition>
+    </Definition>-->
   </CubeBlocks>
 </Definitions>

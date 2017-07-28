@@ -13,15 +13,15 @@
         <string>Refinery/WRS</string>
         <string>Refinery/Hydroponics</string>
         <string>Assembler/Kitchen</string>
-        <string>MedicalRoom/ResupplyStation</string>
-        <string>OxygenGenerator/AdvancedSystemsOxygenGenerator</string>
+        <!--<string>MedicalRoom/ResupplyStation</string>-->
+        <!--<string>OxygenGenerator/AdvancedSystemsOxygenGenerator</string>-->
 
         <string>Refinery/SmallBioReactor</string>
         <string>Refinery/SmallWRS</string>
         <string>Refinery/SmallHydroponics</string>
         <string>Assembler/SmallKitchen</string>
-        <string>MedicalRoom/SmallResupplyStation</string>
-        <string>OxygenGenerator/SmallAdvancedSystemsOxygenGenerator</string>
+        <!--<string>MedicalRoom/SmallResupplyStation</string>-->
+        <!--<string>OxygenGenerator/SmallAdvancedSystemsOxygenGenerator</string>-->
       </ItemIds>
     </Category>
 </CategoryClasses>
