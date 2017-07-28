@@ -125,7 +125,7 @@
 
       <Prerequisites>
         <Item Amount="1" TypeId="Ingot" SubtypeId="SubFresh" />
-        <Item Amount="1" TypeId="Ingot" SubtypeId="NutrientPaste" />
+        <Item Amount="7" TypeId="Ingot" SubtypeId="NutrientPaste" />
       </Prerequisites>
 
       <Result Amount="1" TypeId="Ingot" SubtypeId="GummybearsFood" />
